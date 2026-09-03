@@ -1,0 +1,61 @@
+# Central Configuration for Chest X-ray Disease Detection & Localization
+
+project_name: "Chest X-ray Disease Detection and Localization"
+version: "1.0.0"
+
+# Class Mappings
+num_classes: 2
+classes:
+  0: "Pneumonia"
+  1: "Tuberculosis"
+
+# Model & Architecture Configuration
+model:
+  name: "retinanet_efficientnetb0"
+  backbone: "EfficientNetB0"
+  input_shape: [512, 512, 3]
+  image_size: 512
+  num_anchors: 9
+  aspect_ratios: [0.5, 1.0, 2.0]
+  scales: [1.0, 1.25, 1.6]
+  feature_pyramid_levels: [3, 4, 5]
+  score_threshold: 0.05
+  nms_iou_threshold: 0.5
+  max_detections_per_image: 100
+
+# Training Hyperparameters
+training:
+  batch_size: 8
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  epochs: 30
+  seed: 42
+  train_split: 0.70
+  val_split: 0.15
+  test_split: 0.15
+  focal_loss_alpha: 0.25
+  focal_loss_gamma: 2.0
+  box_loss_weight: 1.0
+
+# Inference & Evaluation Hyperparameters
+inference:
+  confidence_threshold: 0.5
+  iou_threshold: 0.5
+
+# Directory Paths
+paths:
+  data_raw: "data/raw"
+  data_processed: "data/processed"
+  data_pneumonia: "data/pneumonia"
+  data_tuberculosis: "data/tuberculosis"
+  models: "models"
+  models_checkpoints: "models/checkpoints"
+  models_pretrained: "models/pretrained"
+  models_production: "models/production"
+  results: "results"
+  results_validation: "results/validation"
+  results_plots: "results/plots"
+  results_predictions: "results/predictions"
+  results_metrics: "results/metrics"
+  results_dataset_samples: "results/dataset_samples"
+  logs_tensorboard: "logs/tensorboard"

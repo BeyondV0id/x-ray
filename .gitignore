@@ -1,0 +1,49 @@
+# Python & Virtualenv
+__pycache__/
+*.py[cod]
+*$py.class
+.venv
+venv/
+env/
+ENV/
+
+# Data & Heavy Binaries
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/pneumonia/*
+!data/pneumonia/.gitkeep
+data/tuberculosis/*
+!data/tuberculosis/.gitkeep
+data_zips/
+
+# Models & Weights
+models/checkpoints/*
+!models/checkpoints/.gitkeep
+models/pretrained/*
+!models/pretrained/.gitkeep
+models/production/*.h5
+models/production/*.keras
+models/production/*.tflite
+models/production/saved_model/
+
+# Logs & Results
+logs/tensorboard/*
+!logs/tensorboard/.gitkeep
+results/validation/*
+!results/validation/.gitkeep
+results/plots/*
+!results/plots/.gitkeep
+results/predictions/*
+!results/predictions/.gitkeep
+results/metrics/*
+!results/metrics/.gitkeep
+results/dataset_samples/*
+!results/dataset_samples/.gitkeep
+
+# IDEs & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
