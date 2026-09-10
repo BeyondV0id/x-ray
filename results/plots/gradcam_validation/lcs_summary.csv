@@ -1,0 +1,16 @@
+image,true_label,prediction,confidence,lcs_pct
+h0001.png,TB,Normal,3.5,13.6
+h0003.png,TB,Normal,0.9,24.8
+h0004.png,TB,Normal,0.1,17.4
+h0005.png,TB,Normal,0.1,20.4
+h0006.png,TB,Normal,0.2,21.1
+val_0.jpg,Pneumonia,Abnormal,57.7,31.3
+val_1.jpg,Pneumonia,Normal,34.4,24.9
+val_1001.jpg,Pneumonia,Normal,29.5,25.6
+val_1004.jpg,Pneumonia,Abnormal,50.6,26.1
+val_1006.jpg,Pneumonia,Normal,19.7,23.1
+val_10.jpg,Normal,Normal,49.5,22.4
+val_100.jpg,Normal,Normal,36.6,24.1
+val_1000.jpg,Normal,Normal,49.5,29.2
+val_1002.jpg,Normal,Abnormal,54.4,12.3
+val_1003.jpg,Normal,Abnormal,59.3,21.9

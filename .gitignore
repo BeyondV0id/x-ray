@@ -39,3 +39,8 @@ logs/tensorboard/*
 .idea/
 .DS_Store
 Thumbs.db
+
+# Secrets — NEVER commit
+.env
+*.env
+.env.local

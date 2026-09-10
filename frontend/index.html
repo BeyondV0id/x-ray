@@ -22,37 +22,6 @@
             </div>
         </header>
 
-        <!-- Role Selector Switcher -->
-        <div class="role-selector glass-card">
-            <div class="role-header">
-                <span class="role-icon">👤</span>
-                <h3>Clinical View Mode</h3>
-            </div>
-            <div class="role-buttons">
-                <button class="role-btn active" data-role="doctor" id="roleDoctor">
-                    <span class="role-emoji">🩺</span>
-                    <div>
-                        <span class="role-name">Attending Physician</span>
-                        <span class="role-desc">Full Prescriptions & Clinical Agent</span>
-                    </div>
-                </button>
-                <button class="role-btn" data-role="patient" id="rolePatient">
-                    <span class="role-emoji">🏥</span>
-                    <div>
-                        <span class="role-name">Patient Dashboard</span>
-                        <span class="role-desc">7-Day Vitals & Hydration Plan</span>
-                    </div>
-                </button>
-                <button class="role-btn" data-role="student" id="roleStudent">
-                    <span class="role-emoji">📚</span>
-                    <div>
-                        <span class="role-name">Radiology Fellow</span>
-                        <span class="role-desc">Grad-CAM Heatmaps & Lesion Bounding Boxes</span>
-                    </div>
-                </button>
-            </div>
-        </div>
-
         <!-- Main Workspace -->
         <main class="workspace">
             <!-- Left Panel: Input & Quick Sample Selector -->
@@ -98,7 +67,7 @@
             <!-- Right Panel: Results & Multi-Tab Agentic Report -->
             <section class="results-panel glass-card" id="resultsSection">
                 <div class="results-header">
-                    <h2>2. AI Diagnostic Findings & Clinical Report</h2>
+                    <h2>2. Diagnostic Findings & Patient Dashboard</h2>
                     <button class="btn-secondary hidden" id="exportPdfBtn">🖨️ Export Clinical PDF / Print</button>
                 </div>
 
@@ -106,7 +75,7 @@
                 <div class="empty-state" id="emptyState">
                     <div class="empty-icon">🫁</div>
                     <h3>No Image Analyzed Yet</h3>
-                    <p>Upload a Chest X-Ray image or click a sample on the left to trigger deep learning classification, Grad-CAM heatmaps, and medical agent prescriptions.</p>
+                    <p>Upload a Chest X-Ray image or click a sample on the left to trigger deep learning classification, Grad-CAM heatmaps, detailed prescriptions, and patient recovery plans.</p>
                 </div>
 
                 <!-- Active Analysis Results View -->
@@ -134,91 +103,104 @@
 
                     <!-- Multi-Tab Navigation -->
                     <div class="tab-navigation">
-                        <button class="tab-btn active" data-tab="tab-findings">🔍 AI Image Findings</button>
-                        <button class="tab-btn" data-tab="tab-gradcam">🔥 Grad-CAM Heatmap</button>
-                        <button class="tab-btn" data-tab="tab-prescription">💊 Clinical Prescription</button>
-                        <button class="tab-btn" data-tab="tab-vitals">📊 7-Day Vitals Protocol</button>
-                        <button class="tab-btn" data-tab="tab-nutrition">🥗 Pulmonary Nutrition</button>
+                        <button class="tab-btn active" data-tab="tab-findings">🔍 AI Image & Grad-CAM Heatmap</button>
+                        <button class="tab-btn" data-tab="tab-prescription">💊 Evidence-Based Prescription</button>
+                        <button class="tab-btn" data-tab="tab-vitals">🏥 Patient Recovery Dashboard</button>
+                        <button class="tab-btn" data-tab="tab-nutrition">🥗 Pulmonary Nutrition & Hydration</button>
                     </div>
 
-                    <!-- Tab 1: AI Findings & Annotated Image -->
+                    <!-- Tab 1: AI Findings & Grad-CAM -->
                     <div class="tab-pane active" id="tab-findings">
                         <div class="image-viewer-grid">
                             <div class="image-box">
                                 <h4>Annotated Detection Bounding Boxes</h4>
                                 <img id="annotatedImage" src="" alt="Annotated X-Ray Detections">
                             </div>
-                            <div class="findings-details">
-                                <h4>Anatomical Findings & Localization</h4>
-                                <div id="findingsContainer" class="findings-container">
-                                    <p class="text-muted">No localized lesions detected.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tab 2: Explainable AI Grad-CAM Heatmap -->
-                    <div class="tab-pane" id="tab-gradcam">
-                        <div class="image-viewer-grid">
                             <div class="image-box">
                                 <h4>Grad-CAM Saliency Decision Regions</h4>
-                                <img id="gradcamImage" src="" alt="Grad-CAM Explainable AI Heatmap">
+                                <img id="gradcamImage" src="" alt="Grad-CAM Heatmap">
                             </div>
-                            <div class="gradcam-explanation">
-                                <h4>Neural Activation Saliency</h4>
-                                <p>Grad-CAM (Gradient-weighted Class Activation Mapping) visualizes the specific neural network attention regions driving the AI classification score.</p>
-                                <div class="heatmap-legend">
-                                    <span class="legend-color high"></span> High Neural Focus (Red)
-                                    <span class="legend-color medium"></span> Moderate Attention (Yellow)
-                                    <span class="legend-color low"></span> Low Relevance (Blue)
-                                </div>
+                        </div>
+                        <div class="findings-details" style="margin-top: 16px;">
+                            <h4>Anatomical Findings & Radiologist Impression</h4>
+                            <div id="clinicalSummaryBox" class="finding-card" style="margin-bottom: 12px; background: rgba(36,36,44,0.6);">
+                                <!-- Clinical summary text -->
+                            </div>
+                            <div id="findingsContainer" class="findings-container">
+                                <p class="text-muted">No localized lesions detected.</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Tab 3: Clinical Prescription -->
+                    <!-- Tab 2: Detailed Clinical Prescription -->
                     <div class="tab-pane" id="tab-prescription">
                         <div class="prescription-container">
                             <div class="rx-header">
-                                <h3>Rx Evidence-Based Medication Protocol</h3>
+                                <div>
+                                    <h3>Rx Evidence-Based Pharmacotherapy Protocol</h3>
+                                    <p class="rx-meta-subtitle" id="rxMetaSubtitle">WHO / ATS / IDSA Standard Treatment Regimen</p>
+                                </div>
                                 <span class="rx-symbol">℞</span>
                             </div>
+
+                            <div class="rx-info-banner" id="rxInfoBanner">
+                                <!-- WHO Class & ICD-10 rendered dynamically -->
+                            </div>
+
                             <div id="medicationGrid" class="medication-grid">
                                 <!-- Rendered dynamically -->
+                            </div>
+
+                            <div class="rx-footer-box" style="margin-top: 16px;">
+                                <h4>⚠️ Contraindications & Organ Function Monitoring</h4>
+                                <ul id="contraindicationsList" class="contra-list"></ul>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Tab 4: 7-Day Vitals Protocol -->
+                    <!-- Tab 3: Patient Recovery Dashboard (Vitals & Red Flags) -->
                     <div class="tab-pane" id="tab-vitals">
                         <div class="vitals-container">
-                            <h3>7-Day Home Monitoring & Red Flag Triggers</h3>
+                            <div class="patient-dash-header">
+                                <h3>🏥 Patient Recovery Dashboard & 7-Day Vitals Log</h3>
+                                <p class="section-desc">Daily symptom tracking schedule, oxygen saturation targets, and emergency escalation thresholds.</p>
+                            </div>
+
                             <div class="red-flag-box" id="redFlagBox">
-                                <h4>🚨 Emergency Red Flag Triggers</h4>
+                                <h4>🚨 Emergency Red Flag Triggers (Seek ER Immediately)</h4>
                                 <ul id="redFlagList"></ul>
+                            </div>
+
+                            <div class="vitals-section-title" style="margin-top: 20px; margin-bottom: 10px;">
+                                <h4>7-Day Vitals & Symptom Monitoring Schedule</h4>
                             </div>
                             <div id="vitalsScheduleGrid" class="vitals-grid">
                                 <!-- Rendered dynamically -->
                             </div>
+
+                            <div class="home-care-box" style="margin-top: 20px;">
+                                <h4>🏡 Patient Home Care Guidelines & Daily Routine</h4>
+                                <ul id="homeCareList" class="home-care-list"></ul>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Tab 5: Pulmonary Nutrition & Hydration Plan -->
+                    <!-- Tab 4: Pulmonary Nutrition & Hydration Plan -->
                     <div class="tab-pane" id="tab-nutrition">
                         <div class="nutrition-container">
-                            <h3>Pulmonary Nutrition & Anti-Inflammatory Guidelines</h3>
+                            <h3>Pulmonary Nutrition & Anti-Inflammatory Recovery Guidelines</h3>
                             <div class="targets-banner">
                                 <div class="target-item">
-                                    <span class="target-label">Hydration Target</span>
+                                    <span class="target-label">Daily Hydration Target</span>
                                     <span class="target-val" id="hydrationVal">3.0 Liters/day</span>
                                 </div>
                                 <div class="target-item">
-                                    <span class="target-label">Protein Target</span>
+                                    <span class="target-label">Protein Target (Tissue Repair)</span>
                                     <span class="target-val" id="proteinVal">1.2 - 1.5 g/kg/day</span>
                                 </div>
                             </div>
                             <div id="pillarsGrid" class="pillars-grid"></div>
-                            <h4>Suggested Daily Meal Schedule</h4>
+                            <h4 style="margin-top: 18px; margin-bottom: 10px;">Suggested Daily Recovery Meal Schedule</h4>
                             <div id="mealGrid" class="meal-grid"></div>
                         </div>
                     </div>

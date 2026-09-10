@@ -1,0 +1,16 @@
+{
+  "split": "test",
+  "n_samples": 100,
+  "accuracy": 0.94,
+  "precision": 0.94,
+  "recall": 0.94,
+  "specificity": 0.94,
+  "f1_score": 0.94,
+  "roc_auc": 0.9956,
+  "confusion_matrix": {
+    "TP": 47,
+    "FP": 3,
+    "FN": 3,
+    "TN": 47
+  }
+}

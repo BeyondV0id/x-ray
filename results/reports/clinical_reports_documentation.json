@@ -1,0 +1,262 @@
+[
+  {
+    "case_name": "Pneumonia_Test_Case_1",
+    "image_filename": "test_0.jpg",
+    "expected_ground_truth": "Pneumonia",
+    "predicted_condition": "Pneumonia",
+    "pneumonia_probability_percent": 100.0,
+    "tuberculosis_probability_percent": 59.9,
+    "plot_path": "E:\\XRAY\\results\\plots\\documentation\\Pneumonia_Test_Case_1_gradcam_report.png",
+    "agent_report": {
+      "agentic_ai_version": "1.0.0-medical",
+      "clinical_spatial_analysis": {
+        "diagnosis": "Normal Chest X-Ray",
+        "is_abnormal": false,
+        "severity": "None",
+        "affected_regions": [
+          "No focal consolidation or opacity detected"
+        ],
+        "total_opacity_ratio": 0.0,
+        "box_count": 0,
+        "primary_confidence": 0.99
+      },
+      "prescription_recommendation": {
+        "medications": [],
+        "clinical_notes": "No pharmacological intervention required for normal chest radiograph.",
+        "disclaimer": "This system provides automated clinical decision support. Always consult a licensed medical professional."
+      },
+      "health_monitoring_protocol": {
+        "vital_checks": [
+          {
+            "parameter": "Body Temperature",
+            "frequency": "Once Daily",
+            "normal_range": "36.5\u00b0C - 37.5\u00b0C"
+          },
+          {
+            "parameter": "Pulse Oximetry (SpO2)",
+            "frequency": "Optional / As needed",
+            "normal_range": "95% - 100%"
+          }
+        ],
+        "red_flags": [
+          "Persistent cough > 2 weeks",
+          "Unexplained fever",
+          "Chest pain"
+        ],
+        "follow_up_days": 14
+      },
+      "pulmonary_nutrition_plan": {
+        "daily_hydration_liters": 2.5,
+        "protein_target": "1.0g / kg body weight",
+        "recommended_foods": [
+          "Balanced Mediterranean diet",
+          "Fresh fruits",
+          "Whole grains"
+        ],
+        "foods_to_avoid": [
+          "Excess refined sugars",
+          "Ultra-processed foods"
+        ],
+        "supplements": [
+          "Daily Multivitamin (Optional)"
+        ]
+      },
+      "overall_summary": "Agentic AI analysis completed for Normal Chest X-Ray. Severity: None. Affected Regions: No focal consolidation or opacity detected."
+    }
+  },
+  {
+    "case_name": "Pneumonia_Test_Case_2",
+    "image_filename": "test_0.jpg",
+    "expected_ground_truth": "Pneumonia",
+    "predicted_condition": "Pneumonia",
+    "pneumonia_probability_percent": 100.0,
+    "tuberculosis_probability_percent": 59.9,
+    "plot_path": "E:\\XRAY\\results\\plots\\documentation\\Pneumonia_Test_Case_2_gradcam_report.png",
+    "agent_report": {
+      "agentic_ai_version": "1.0.0-medical",
+      "clinical_spatial_analysis": {
+        "diagnosis": "Normal Chest X-Ray",
+        "is_abnormal": false,
+        "severity": "None",
+        "affected_regions": [
+          "No focal consolidation or opacity detected"
+        ],
+        "total_opacity_ratio": 0.0,
+        "box_count": 0,
+        "primary_confidence": 0.99
+      },
+      "prescription_recommendation": {
+        "medications": [],
+        "clinical_notes": "No pharmacological intervention required for normal chest radiograph.",
+        "disclaimer": "This system provides automated clinical decision support. Always consult a licensed medical professional."
+      },
+      "health_monitoring_protocol": {
+        "vital_checks": [
+          {
+            "parameter": "Body Temperature",
+            "frequency": "Once Daily",
+            "normal_range": "36.5\u00b0C - 37.5\u00b0C"
+          },
+          {
+            "parameter": "Pulse Oximetry (SpO2)",
+            "frequency": "Optional / As needed",
+            "normal_range": "95% - 100%"
+          }
+        ],
+        "red_flags": [
+          "Persistent cough > 2 weeks",
+          "Unexplained fever",
+          "Chest pain"
+        ],
+        "follow_up_days": 14
+      },
+      "pulmonary_nutrition_plan": {
+        "daily_hydration_liters": 2.5,
+        "protein_target": "1.0g / kg body weight",
+        "recommended_foods": [
+          "Balanced Mediterranean diet",
+          "Fresh fruits",
+          "Whole grains"
+        ],
+        "foods_to_avoid": [
+          "Excess refined sugars",
+          "Ultra-processed foods"
+        ],
+        "supplements": [
+          "Daily Multivitamin (Optional)"
+        ]
+      },
+      "overall_summary": "Agentic AI analysis completed for Normal Chest X-Ray. Severity: None. Affected Regions: No focal consolidation or opacity detected."
+    }
+  },
+  {
+    "case_name": "Tuberculosis_Test_Case_1",
+    "image_filename": "h0001.png",
+    "expected_ground_truth": "Tuberculosis",
+    "predicted_condition": "Normal",
+    "pneumonia_probability_percent": 2.8,
+    "tuberculosis_probability_percent": 3.5,
+    "plot_path": "E:\\XRAY\\results\\plots\\documentation\\Tuberculosis_Test_Case_1_gradcam_report.png",
+    "agent_report": {
+      "agentic_ai_version": "1.0.0-medical",
+      "clinical_spatial_analysis": {
+        "diagnosis": "Normal Chest X-Ray",
+        "is_abnormal": false,
+        "severity": "None",
+        "affected_regions": [
+          "No focal consolidation or opacity detected"
+        ],
+        "total_opacity_ratio": 0.0,
+        "box_count": 0,
+        "primary_confidence": 0.99
+      },
+      "prescription_recommendation": {
+        "medications": [],
+        "clinical_notes": "No pharmacological intervention required for normal chest radiograph.",
+        "disclaimer": "This system provides automated clinical decision support. Always consult a licensed medical professional."
+      },
+      "health_monitoring_protocol": {
+        "vital_checks": [
+          {
+            "parameter": "Body Temperature",
+            "frequency": "Once Daily",
+            "normal_range": "36.5\u00b0C - 37.5\u00b0C"
+          },
+          {
+            "parameter": "Pulse Oximetry (SpO2)",
+            "frequency": "Optional / As needed",
+            "normal_range": "95% - 100%"
+          }
+        ],
+        "red_flags": [
+          "Persistent cough > 2 weeks",
+          "Unexplained fever",
+          "Chest pain"
+        ],
+        "follow_up_days": 14
+      },
+      "pulmonary_nutrition_plan": {
+        "daily_hydration_liters": 2.5,
+        "protein_target": "1.0g / kg body weight",
+        "recommended_foods": [
+          "Balanced Mediterranean diet",
+          "Fresh fruits",
+          "Whole grains"
+        ],
+        "foods_to_avoid": [
+          "Excess refined sugars",
+          "Ultra-processed foods"
+        ],
+        "supplements": [
+          "Daily Multivitamin (Optional)"
+        ]
+      },
+      "overall_summary": "Agentic AI analysis completed for Normal Chest X-Ray. Severity: None. Affected Regions: No focal consolidation or opacity detected."
+    }
+  },
+  {
+    "case_name": "Normal_Healthy_Test_Case_1",
+    "image_filename": "test_103.jpg",
+    "expected_ground_truth": "Normal",
+    "predicted_condition": "Tuberculosis",
+    "pneumonia_probability_percent": 0.0,
+    "tuberculosis_probability_percent": 53.3,
+    "plot_path": "E:\\XRAY\\results\\plots\\documentation\\Normal_Healthy_Test_Case_1_gradcam_report.png",
+    "agent_report": {
+      "agentic_ai_version": "1.0.0-medical",
+      "clinical_spatial_analysis": {
+        "diagnosis": "Normal Chest X-Ray",
+        "is_abnormal": false,
+        "severity": "None",
+        "affected_regions": [
+          "No focal consolidation or opacity detected"
+        ],
+        "total_opacity_ratio": 0.0,
+        "box_count": 0,
+        "primary_confidence": 0.99
+      },
+      "prescription_recommendation": {
+        "medications": [],
+        "clinical_notes": "No pharmacological intervention required for normal chest radiograph.",
+        "disclaimer": "This system provides automated clinical decision support. Always consult a licensed medical professional."
+      },
+      "health_monitoring_protocol": {
+        "vital_checks": [
+          {
+            "parameter": "Body Temperature",
+            "frequency": "Once Daily",
+            "normal_range": "36.5\u00b0C - 37.5\u00b0C"
+          },
+          {
+            "parameter": "Pulse Oximetry (SpO2)",
+            "frequency": "Optional / As needed",
+            "normal_range": "95% - 100%"
+          }
+        ],
+        "red_flags": [
+          "Persistent cough > 2 weeks",
+          "Unexplained fever",
+          "Chest pain"
+        ],
+        "follow_up_days": 14
+      },
+      "pulmonary_nutrition_plan": {
+        "daily_hydration_liters": 2.5,
+        "protein_target": "1.0g / kg body weight",
+        "recommended_foods": [
+          "Balanced Mediterranean diet",
+          "Fresh fruits",
+          "Whole grains"
+        ],
+        "foods_to_avoid": [
+          "Excess refined sugars",
+          "Ultra-processed foods"
+        ],
+        "supplements": [
+          "Daily Multivitamin (Optional)"
+        ]
+      },
+      "overall_summary": "Agentic AI analysis completed for Normal Chest X-Ray. Severity: None. Affected Regions: No focal consolidation or opacity detected."
+    }
+  }
+]
