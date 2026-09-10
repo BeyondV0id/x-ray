@@ -3,63 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chest X-ray Disease Detection & Localization AI</title>
+    <title>Chest X-ray AI Platform - Deep Learning & Clinical Agent</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="app-container">
-        <!-- Top Banner / Header -->
-        <header class="app-header">
+        <!-- Top App Header -->
+        <header class="app-header glass-card">
             <div class="brand">
                 <div class="logo-icon">🫁</div>
                 <div>
-                    <h1>Chest X-ray AI Detector</h1>
-                    <p class="subtitle">TensorFlow Disease Detection & Anatomical Localization (Pneumonia & Tuberculosis)</p>
+                    <h1>PulmoVision AI Platform</h1>
+                    <p class="subtitle">PyTorch Deep Learning & Agentic Medical Decision System</p>
                 </div>
             </div>
             <div class="system-status">
-                <span class="status-badge pulse" id="statusBadge">Connecting...</span>
-                <span class="status-badge gpu" id="gpuBadge">GPU: Checking</span>
+                <span class="status-badge pulse" id="statusBadge">Connecting Backend...</span>
+                <span class="status-badge gpu" id="gpuBadge">GPU: Active</span>
             </div>
         </header>
 
-        <!-- Mandatory Medical Disclaimer Banner -->
+        <!-- Clinical Disclaimer Banner -->
         <div class="disclaimer-banner">
             <span class="disclaimer-icon">⚠️</span>
             <p id="medicalDisclaimer">
-                <strong>Medical Research Disclaimer:</strong> This system is an AI-assisted research tool and is not intended to provide a medical diagnosis. Results should not be used as a substitute for evaluation by a qualified medical professional.
+                <strong>Medical Research Disclaimer:</strong> This system is an AI-assisted clinical research tool and does not replace professional diagnostic judgment by a qualified radiologist or physician.
             </p>
         </div>
 
-        <!-- Role Selection -->
-        <div class="role-selector glass-card" id="roleSelector">
+        <!-- Role Selector Switcher -->
+        <div class="role-selector glass-card">
             <div class="role-header">
-                <span>👤</span>
-                <h3>Select Your Role</h3>
+                <span class="role-icon">👤</span>
+                <h3>Clinical View Mode</h3>
             </div>
             <div class="role-buttons">
                 <button class="role-btn active" data-role="doctor" id="roleDoctor">
                     <span class="role-emoji">🩺</span>
                     <div>
-                        <span class="role-name">Doctor</span>
-                        <span class="role-desc">Prescriptions & Clinical Notes</span>
+                        <span class="role-name">Attending Physician</span>
+                        <span class="role-desc">Full Prescriptions & Clinical Agent</span>
                     </div>
                 </button>
                 <button class="role-btn" data-role="patient" id="rolePatient">
                     <span class="role-emoji">🏥</span>
                     <div>
-                        <span class="role-name">Patient</span>
-                        <span class="role-desc">My Results & Medications</span>
+                        <span class="role-name">Patient Dashboard</span>
+                        <span class="role-desc">7-Day Vitals & Hydration Plan</span>
                     </div>
                 </button>
                 <button class="role-btn" data-role="student" id="roleStudent">
                     <span class="role-emoji">📚</span>
                     <div>
-                        <span class="role-name">Medical Student</span>
-                        <span class="role-desc">Educational & Learning Mode</span>
+                        <span class="role-name">Radiology Fellow</span>
+                        <span class="role-desc">Grad-CAM Heatmaps & Lesion Bounding Boxes</span>
                     </div>
                 </button>
             </div>
@@ -67,153 +67,177 @@
 
         <!-- Main Workspace -->
         <main class="workspace">
-            <!-- Left Side: Control & Upload Section -->
+            <!-- Left Panel: Input & Quick Sample Selector -->
             <section class="control-panel glass-card">
-                <h2>1. Input Chest X-ray</h2>
-                <p class="section-desc">Upload a DICOM, PNG, or JPEG chest image for automated deep learning inference.</p>
+                <h2>1. Input Chest X-Ray</h2>
+                <p class="section-desc">Upload a DICOM, PNG, or JPEG chest image or pick a sample X-ray below.</p>
 
                 <!-- Drag & Drop Zone -->
                 <div class="drop-zone" id="dropZone">
                     <input type="file" id="fileInput" accept="image/*,.dcm" class="file-input">
                     <div class="drop-content">
                         <div class="upload-icon">📁</div>
-                        <p class="primary-text">Drag & Drop Chest X-ray image here</p>
+                        <p class="primary-text">Drag & Drop Chest X-Ray image here</p>
                         <p class="secondary-text">or click to browse files (PNG, JPG, DICOM)</p>
                     </div>
                 </div>
 
-                <!-- Parameters Form -->
+                <!-- 1-Click Instant Sample Image Selector -->
+                <div class="sample-section">
+                    <h3>⚡ Instant Sample Testing:</h3>
+                    <div class="sample-grid" id="sampleGrid">
+                        <div class="sample-card loading">Loading samples...</div>
+                    </div>
+                </div>
+
+                <!-- Detection Threshold Slider -->
                 <div class="controls-form">
                     <div class="control-group">
                         <div class="label-row">
-                            <label for="confThreshold">Confidence Threshold:</label>
-                            <span class="conf-val" id="confVal">50%</span>
+                            <label for="confThreshold">Detection Confidence Threshold:</label>
+                            <span class="conf-val" id="confVal">30%</span>
                         </div>
-                        <input type="range" id="confThreshold" min="10" max="95" value="50" step="5">
+                        <input type="range" id="confThreshold" min="5" max="90" value="30" step="5">
                     </div>
 
                     <button class="btn-primary" id="analyzeBtn" disabled>
-                        <span>Run AI Inference</span>
+                        <span>Run AI Inference & Clinical Agent</span>
                         <div class="spinner hidden" id="btnSpinner"></div>
                     </button>
                 </div>
             </section>
 
-            <!-- Right Side: Visualization & Findings Output -->
-            <section class="results-panel glass-card">
-                <h2>2. Localization & Findings</h2>
+            <!-- Right Panel: Results & Multi-Tab Agentic Report -->
+            <section class="results-panel glass-card" id="resultsSection">
+                <div class="results-header">
+                    <h2>2. AI Diagnostic Findings & Clinical Report</h2>
+                    <button class="btn-secondary hidden" id="exportPdfBtn">🖨️ Export Clinical PDF / Print</button>
+                </div>
 
-                <div class="results-grid" id="resultsGrid">
-                    <!-- Placeholder State -->
-                    <div class="placeholder-state" id="placeholderState">
-                        <div class="pulse-ring">🔍</div>
-                        <h3>No Image Analyzed Yet</h3>
-                        <p>Upload a chest X-ray and click "Run AI Inference" to visualize disease detection bounding boxes.</p>
-                    </div>
+                <!-- Default Empty State -->
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-icon">🫁</div>
+                    <h3>No Image Analyzed Yet</h3>
+                    <p>Upload a Chest X-Ray image or click a sample on the left to trigger deep learning classification, Grad-CAM heatmaps, and medical agent prescriptions.</p>
+                </div>
 
-                    <!-- Active Result State -->
-                    <div class="active-results hidden" id="activeResults">
-                        <div class="image-viewer">
-                            <div class="viewer-header">
-                                <span>Annotated Image Output</span>
-                                <span class="badge count-badge" id="detectionCountBadge">0 Detections</span>
-                            </div>
-                            <div class="image-container">
-                                <img id="annotatedImage" src="" alt="Annotated X-ray Output">
-                            </div>
+                <!-- Active Analysis Results View -->
+                <div class="analysis-content hidden" id="analysisContent">
+                    <!-- Top Disease Probability Cards -->
+                    <div class="metrics-grid">
+                        <div class="metric-card pneumonia">
+                            <span class="card-label">Pneumonia Probability</span>
+                            <div class="prob-value" id="pnProbVal">0%</div>
+                            <div class="progress-bar"><div class="progress-fill pneumonia" id="pnProbBar" style="width: 0%"></div></div>
                         </div>
 
-                        <div class="findings-list">
-                            <h3>Detected Abnormalities</h3>
-                            <div id="findingsContainer" class="findings-container">
-                                <!-- Dynamic Detection Cards -->
+                        <div class="metric-card tb">
+                            <span class="card-label">Tuberculosis Probability</span>
+                            <div class="prob-value" id="tbProbVal">0%</div>
+                            <div class="progress-bar"><div class="progress-fill tb" id="tbProbBar" style="width: 0%"></div></div>
+                        </div>
+
+                        <div class="metric-card diagnosis">
+                            <span class="card-label">Primary AI Diagnosis</span>
+                            <div class="diag-status" id="diagStatus">Evaluating...</div>
+                            <span class="severity-badge" id="severityBadge">Normal</span>
+                        </div>
+                    </div>
+
+                    <!-- Multi-Tab Navigation -->
+                    <div class="tab-navigation">
+                        <button class="tab-btn active" data-tab="tab-findings">🔍 AI Image Findings</button>
+                        <button class="tab-btn" data-tab="tab-gradcam">🔥 Grad-CAM Heatmap</button>
+                        <button class="tab-btn" data-tab="tab-prescription">💊 Clinical Prescription</button>
+                        <button class="tab-btn" data-tab="tab-vitals">📊 7-Day Vitals Protocol</button>
+                        <button class="tab-btn" data-tab="tab-nutrition">🥗 Pulmonary Nutrition</button>
+                    </div>
+
+                    <!-- Tab 1: AI Findings & Annotated Image -->
+                    <div class="tab-pane active" id="tab-findings">
+                        <div class="image-viewer-grid">
+                            <div class="image-box">
+                                <h4>Annotated Detection Bounding Boxes</h4>
+                                <img id="annotatedImage" src="" alt="Annotated X-Ray Detections">
                             </div>
+                            <div class="findings-details">
+                                <h4>Anatomical Findings & Localization</h4>
+                                <div id="findingsContainer" class="findings-container">
+                                    <p class="text-muted">No localized lesions detected.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Explainable AI Grad-CAM Heatmap -->
+                    <div class="tab-pane" id="tab-gradcam">
+                        <div class="image-viewer-grid">
+                            <div class="image-box">
+                                <h4>Grad-CAM Saliency Decision Regions</h4>
+                                <img id="gradcamImage" src="" alt="Grad-CAM Explainable AI Heatmap">
+                            </div>
+                            <div class="gradcam-explanation">
+                                <h4>Neural Activation Saliency</h4>
+                                <p>Grad-CAM (Gradient-weighted Class Activation Mapping) visualizes the specific neural network attention regions driving the AI classification score.</p>
+                                <div class="heatmap-legend">
+                                    <span class="legend-color high"></span> High Neural Focus (Red)
+                                    <span class="legend-color medium"></span> Moderate Attention (Yellow)
+                                    <span class="legend-color low"></span> Low Relevance (Blue)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3: Clinical Prescription -->
+                    <div class="tab-pane" id="tab-prescription">
+                        <div class="prescription-container">
+                            <div class="rx-header">
+                                <h3>Rx Evidence-Based Medication Protocol</h3>
+                                <span class="rx-symbol">℞</span>
+                            </div>
+                            <div id="medicationGrid" class="medication-grid">
+                                <!-- Rendered dynamically -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 4: 7-Day Vitals Protocol -->
+                    <div class="tab-pane" id="tab-vitals">
+                        <div class="vitals-container">
+                            <h3>7-Day Home Monitoring & Red Flag Triggers</h3>
+                            <div class="red-flag-box" id="redFlagBox">
+                                <h4>🚨 Emergency Red Flag Triggers</h4>
+                                <ul id="redFlagList"></ul>
+                            </div>
+                            <div id="vitalsScheduleGrid" class="vitals-grid">
+                                <!-- Rendered dynamically -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 5: Pulmonary Nutrition & Hydration Plan -->
+                    <div class="tab-pane" id="tab-nutrition">
+                        <div class="nutrition-container">
+                            <h3>Pulmonary Nutrition & Anti-Inflammatory Guidelines</h3>
+                            <div class="targets-banner">
+                                <div class="target-item">
+                                    <span class="target-label">Hydration Target</span>
+                                    <span class="target-val" id="hydrationVal">3.0 Liters/day</span>
+                                </div>
+                                <div class="target-item">
+                                    <span class="target-label">Protein Target</span>
+                                    <span class="target-val" id="proteinVal">1.2 - 1.5 g/kg/day</span>
+                                </div>
+                            </div>
+                            <div id="pillarsGrid" class="pillars-grid"></div>
+                            <h4>Suggested Daily Meal Schedule</h4>
+                            <div id="mealGrid" class="meal-grid"></div>
                         </div>
                     </div>
                 </div>
             </section>
         </main>
-
-        <!-- Clinical Workflow Section (appears after analysis) -->
-        <section class="clinical-section hidden" id="clinicalSection">
-            <!-- Severity Assessment -->
-            <div class="severity-bar glass-card" id="severityBar">
-                <div class="severity-header">
-                    <h2><span class="panel-icon">⚡</span> Clinical Assessment</h2>
-                    <span class="severity-badge" id="severityBadge">Pending</span>
-                </div>
-                <div class="severity-summary" id="severitySummary"></div>
-            </div>
-
-            <div class="clinical-grid">
-                <!-- Prescription Panel -->
-                <div class="prescription-panel glass-card" id="prescriptionPanel">
-                    <div class="panel-header">
-                        <h2><span class="panel-icon">💊</span> <span id="rxTitle">Prescription</span></h2>
-                        <span class="role-indicator" id="rxRoleIndicator"></span>
-                    </div>
-                    <div id="prescriptionContent"></div>
-                </div>
-
-                <!-- Follow-Up Timeline -->
-                <div class="followup-panel glass-card" id="followupPanel">
-                    <div class="panel-header">
-                        <h2><span class="panel-icon">📅</span> <span id="fuTitle">Follow-Up Plan</span></h2>
-                    </div>
-                    <div class="timeline" id="followupTimeline"></div>
-                </div>
-            </div>
-
-            <!-- Clinical Notes (Doctor Only) -->
-            <div class="notes-panel glass-card hidden" id="clinicalNotesPanel">
-                <div class="panel-header">
-                    <h2><span class="panel-icon">📝</span> Clinical Notes</h2>
-                </div>
-                <textarea id="clinicalNotes" placeholder="Add clinical observations, patient history, and additional notes here..."></textarea>
-            </div>
-
-            <!-- Patient Lifestyle (Patient Only) -->
-            <div class="lifestyle-panel glass-card hidden" id="lifestylePanel">
-                <div class="panel-header">
-                    <h2><span class="panel-icon">🌿</span> Self-Care & Lifestyle Advice</h2>
-                </div>
-                <div id="lifestyleContent"></div>
-            </div>
-
-            <!-- Diet Recommendation Agent -->
-            <div class="diet-panel glass-card hidden" id="dietPanel">
-                <div class="panel-header">
-                    <h2><span class="panel-icon">🥗</span> Diet Recommendation Agent</h2>
-                    <span class="diet-badge" id="dietBadge">AI Nutrition</span>
-                </div>
-                <div id="dietContent"></div>
-            </div>
-
-            <!-- Educational Panel (Student Only) -->
-            <div class="education-panel glass-card hidden" id="educationPanel">
-                <div class="panel-header">
-                    <h2><span class="panel-icon">📖</span> Educational Information</h2>
-                </div>
-                <div id="educationContent"></div>
-            </div>
-
-            <!-- Report Generation -->
-            <div class="report-actions glass-card" id="reportActions">
-                <button class="btn-report" id="generateReportBtn">
-                    <span>📋</span> Generate Clinical Report
-                </button>
-                <button class="btn-report secondary" id="printReportBtn">
-                    <span>🖨️</span> Print Report
-                </button>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="app-footer">
-            <p>TensorFlow Chest X-ray Object Detection & Localization | Research Project</p>
-        </footer>
     </div>
-
     <script src="app.js"></script>
 </body>
 </html>
