@@ -128,7 +128,7 @@ def main():
     # Find sample image if not provided
     img_path = Path(args.img_path) if args.img_path else None
     if not img_path or not img_path.exists():
-        sample_candidates = list(Path("data_zips/tbx11k-simplified/images").glob("*.png")) + list(Path("data/raw/dataset1/train").rglob("*.jpeg"))
+        sample_candidates = list(Path("data/raw/tuberculosis/images").glob("*.png")) + list(Path("data/raw/dataset1/train").rglob("*.jpeg"))
         if sample_candidates:
             img_path = sample_candidates[0]
         else:
