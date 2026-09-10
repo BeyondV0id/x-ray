@@ -34,6 +34,37 @@
             </p>
         </div>
 
+        <!-- Role Selection -->
+        <div class="role-selector glass-card" id="roleSelector">
+            <div class="role-header">
+                <span>👤</span>
+                <h3>Select Your Role</h3>
+            </div>
+            <div class="role-buttons">
+                <button class="role-btn active" data-role="doctor" id="roleDoctor">
+                    <span class="role-emoji">🩺</span>
+                    <div>
+                        <span class="role-name">Doctor</span>
+                        <span class="role-desc">Prescriptions & Clinical Notes</span>
+                    </div>
+                </button>
+                <button class="role-btn" data-role="patient" id="rolePatient">
+                    <span class="role-emoji">🏥</span>
+                    <div>
+                        <span class="role-name">Patient</span>
+                        <span class="role-desc">My Results & Medications</span>
+                    </div>
+                </button>
+                <button class="role-btn" data-role="student" id="roleStudent">
+                    <span class="role-emoji">📚</span>
+                    <div>
+                        <span class="role-name">Medical Student</span>
+                        <span class="role-desc">Educational & Learning Mode</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
         <!-- Main Workspace -->
         <main class="workspace">
             <!-- Left Side: Control & Upload Section -->
@@ -102,6 +133,80 @@
                 </div>
             </section>
         </main>
+
+        <!-- Clinical Workflow Section (appears after analysis) -->
+        <section class="clinical-section hidden" id="clinicalSection">
+            <!-- Severity Assessment -->
+            <div class="severity-bar glass-card" id="severityBar">
+                <div class="severity-header">
+                    <h2><span class="panel-icon">⚡</span> Clinical Assessment</h2>
+                    <span class="severity-badge" id="severityBadge">Pending</span>
+                </div>
+                <div class="severity-summary" id="severitySummary"></div>
+            </div>
+
+            <div class="clinical-grid">
+                <!-- Prescription Panel -->
+                <div class="prescription-panel glass-card" id="prescriptionPanel">
+                    <div class="panel-header">
+                        <h2><span class="panel-icon">💊</span> <span id="rxTitle">Prescription</span></h2>
+                        <span class="role-indicator" id="rxRoleIndicator"></span>
+                    </div>
+                    <div id="prescriptionContent"></div>
+                </div>
+
+                <!-- Follow-Up Timeline -->
+                <div class="followup-panel glass-card" id="followupPanel">
+                    <div class="panel-header">
+                        <h2><span class="panel-icon">📅</span> <span id="fuTitle">Follow-Up Plan</span></h2>
+                    </div>
+                    <div class="timeline" id="followupTimeline"></div>
+                </div>
+            </div>
+
+            <!-- Clinical Notes (Doctor Only) -->
+            <div class="notes-panel glass-card hidden" id="clinicalNotesPanel">
+                <div class="panel-header">
+                    <h2><span class="panel-icon">📝</span> Clinical Notes</h2>
+                </div>
+                <textarea id="clinicalNotes" placeholder="Add clinical observations, patient history, and additional notes here..."></textarea>
+            </div>
+
+            <!-- Patient Lifestyle (Patient Only) -->
+            <div class="lifestyle-panel glass-card hidden" id="lifestylePanel">
+                <div class="panel-header">
+                    <h2><span class="panel-icon">🌿</span> Self-Care & Lifestyle Advice</h2>
+                </div>
+                <div id="lifestyleContent"></div>
+            </div>
+
+            <!-- Diet Recommendation Agent -->
+            <div class="diet-panel glass-card hidden" id="dietPanel">
+                <div class="panel-header">
+                    <h2><span class="panel-icon">🥗</span> Diet Recommendation Agent</h2>
+                    <span class="diet-badge" id="dietBadge">AI Nutrition</span>
+                </div>
+                <div id="dietContent"></div>
+            </div>
+
+            <!-- Educational Panel (Student Only) -->
+            <div class="education-panel glass-card hidden" id="educationPanel">
+                <div class="panel-header">
+                    <h2><span class="panel-icon">📖</span> Educational Information</h2>
+                </div>
+                <div id="educationContent"></div>
+            </div>
+
+            <!-- Report Generation -->
+            <div class="report-actions glass-card" id="reportActions">
+                <button class="btn-report" id="generateReportBtn">
+                    <span>📋</span> Generate Clinical Report
+                </button>
+                <button class="btn-report secondary" id="printReportBtn">
+                    <span>🖨️</span> Print Report
+                </button>
+            </div>
+        </section>
 
         <!-- Footer -->
         <footer class="app-footer">

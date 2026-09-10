@@ -26,6 +26,8 @@ models/pretrained/*
 models/production/*.h5
 models/production/*.keras
 models/production/*.tflite
+models/production/*.pth
+models/production/*.pt
 models/production/saved_model/
 
 # Logs & Results

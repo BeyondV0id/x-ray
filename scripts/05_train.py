@@ -12,6 +12,48 @@ from src.utils import setup_logger, set_seed, check_gpu_status
 from src.dataset import build_tf_dataset
 from src.model import build_retinanet_model, FocalLoss, SmoothL1Loss
 
+class PercentageProgressCallback(tf.keras.callbacks.Callback):
+    """Custom callback to log batch step and total epoch completion percentages clearly."""
+    def __init__(self, total_epochs: int, logger=None, update_pct_step: int = 10):
+        super().__init__()
+        self.total_epochs = total_epochs
+        self.logger = logger
+        self.update_pct_step = update_pct_step
+        self.current_epoch = 1
+
+    def on_epoch_begin(self, epoch, logs=None):
+        self.current_epoch = epoch + 1
+
+    def on_train_batch_end(self, batch, logs=None):
+        logs = logs or {}
+        steps = self.params.get("steps") if hasattr(self, "params") and self.params else None
+        if steps:
+            curr_step = batch + 1
+            freq = max(1, steps * self.update_pct_step // 100)
+            if curr_step == 1 or curr_step % freq == 0 or curr_step == steps:
+                epoch_pct = (curr_step / steps) * 100
+                overall_pct = ((self.current_epoch - 1 + (curr_step / steps)) / self.total_epochs) * 100
+                cls_loss = logs.get("cls_predictions_loss", logs.get("loss", 0.0))
+                box_loss = logs.get("box_predictions_loss", 0.0)
+                tot_loss = logs.get("loss", 0.0)
+                msg = f"  [Epoch {self.current_epoch}/{self.total_epochs} | Batch {curr_step}/{steps} ({epoch_pct:.0f}%)] -> Total Progress: {overall_pct:.1f}% | Loss: {tot_loss:.4f} (Cls: {cls_loss:.4f}, Box: {box_loss:.4f})"
+                if self.logger:
+                    self.logger.info(msg)
+                else:
+                    print(msg, flush=True)
+
+    def on_epoch_end(self, epoch, logs=None):
+        logs = logs or {}
+        epoch_num = epoch + 1
+        overall_pct = (epoch_num / self.total_epochs) * 100
+        val_loss = logs.get("val_loss", 0.0)
+        tot_loss = logs.get("loss", 0.0)
+        msg = f"=== EPOCH {epoch_num}/{self.total_epochs} COMPLETE ({overall_pct:.1f}% Overall) | Train Loss: {tot_loss:.4f} | Val Loss: {val_loss:.4f} ==="
+        if self.logger:
+            self.logger.info(msg)
+        else:
+            print(msg, flush=True)
+
 def main():
     parser = argparse.ArgumentParser(description="Train TensorFlow RetinaNet Chest X-Ray Object Detector.")
     parser.add_argument("--epochs", type=int, default=None, help="Number of training epochs.")
@@ -56,8 +98,8 @@ def main():
     num_classes = config.get("num_classes", 2)
 
     # Build tf.data pipelines
-    train_ds = build_tf_dataset(train_records, image_size=image_size, batch_size=batch_size, is_training=True)
-    val_ds = build_tf_dataset(val_records, image_size=image_size, batch_size=batch_size, is_training=False)
+    train_ds = build_tf_dataset(train_records, image_size=image_size, batch_size=batch_size, is_training=True, num_classes=num_classes)
+    val_ds = build_tf_dataset(val_records, image_size=image_size, batch_size=batch_size, is_training=False, num_classes=num_classes)
 
     # Build or load model
     if args.resume and Path(args.resume).exists():
@@ -134,7 +176,9 @@ def main():
         histogram_freq=1
     )
 
-    callbacks = [checkpoint_cb, best_model_cb, early_stop_cb, reduce_lr_cb, tensorboard_cb]
+    progress_cb = PercentageProgressCallback(total_epochs=epochs, logger=logger, update_pct_step=10)
+
+    callbacks = [progress_cb, checkpoint_cb, best_model_cb, early_stop_cb, reduce_lr_cb, tensorboard_cb]
 
     logger.info("Starting model training...")
     try:
@@ -155,10 +199,12 @@ def main():
 
     except Exception as e:
         logger.error(f"Training interrupted or encountered error: {e}")
-        # Save current state as fallback checkpoint
-        fallback_path = prod_dir / "interrupted_model.keras"
-        model.save(str(fallback_path))
-        logger.info(f"Fallback model saved to: {fallback_path}")
+        try:
+            fallback_path = prod_dir / "interrupted_model.keras"
+            model.save(str(fallback_path))
+            logger.info(f"Fallback model saved to: {fallback_path}")
+        except Exception as save_err:
+            logger.warning(f"Could not save fallback model: {save_err}")
 
     logger.info("=== STEP 05 COMPLETE ===")
 

@@ -29,17 +29,18 @@ def main():
         model_path = Path(paths["models_production"]) / "best_model.keras"
 
     if not model_path.exists():
-        logger.warning(f"Model file not found at {model_path}. Instantiating fresh model for signature verification.")
-        model = build_retinanet_model(
-            input_shape=(config["model"]["image_size"], config["model"]["image_size"], 3),
-            num_classes=config["num_classes"]
-        )
+        logger.warning(f"Model file not found at {model_path}. Instantiating fresh classifier model for signature verification.")
+        from scripts.train_classification import build_classifier_model
+        model = build_classifier_model(image_size=config["model"]["image_size"], num_classes=2)
     else:
         logger.info(f"Loading model from: {model_path}")
-        model = tf.keras.models.load_model(
-            str(model_path),
-            custom_objects={"FocalLoss": FocalLoss, "SmoothL1Loss": SmoothL1Loss}
-        )
+        try:
+            model = tf.keras.models.load_model(str(model_path))
+        except Exception:
+            model = tf.keras.models.load_model(
+                str(model_path),
+                custom_objects={"FocalLoss": FocalLoss, "SmoothL1Loss": SmoothL1Loss}
+            )
 
     logger.info("\n--- Model Signature Details ---")
     logger.info(f"Model Name: {model.name}")
@@ -51,21 +52,22 @@ def main():
     dummy_input = np.random.uniform(0.0, 1.0, size=(1, img_size, img_size, 3)).astype(np.float32)
 
     logger.info("\n--- Running 1 Test Inference ---")
-    cls_preds, box_preds = model.predict(dummy_input, verbose=0)
-    logger.info(f"Raw Classification Output Shape: {cls_preds.shape}")
-    logger.info(f"Raw Box Regression Output Shape: {box_preds.shape}")
-
-    boxes, scores, classes = decode_predictions(
-        cls_preds[0], box_preds[0],
-        score_threshold=0.01,
-        iou_threshold=0.5
-    )
-
-    logger.info(f"Decoded Bounding Boxes Count: {len(boxes)}")
-    if len(boxes) > 0:
-        logger.info(f"Sample Box [ymin, xmin, ymax, xmax]: {boxes[0].tolist()}")
-        logger.info(f"Sample Confidence Score: {scores[0]:.4f}")
-        logger.info(f"Sample Class Index: {classes[0]}")
+    preds = model.predict(dummy_input, verbose=0)
+    
+    if isinstance(preds, (list, tuple)) and len(preds) == 2:
+        cls_preds, box_preds = preds
+        logger.info(f"Raw Classification Output Shape: {cls_preds.shape}")
+        logger.info(f"Raw Box Regression Output Shape: {box_preds.shape}")
+        boxes, scores, classes = decode_predictions(
+            cls_preds[0], box_preds[0],
+            score_threshold=0.01,
+            iou_threshold=0.5
+        )
+        logger.info(f"Decoded Bounding Boxes Count: {len(boxes)}")
+    else:
+        score = float(preds[0][0]) if len(preds.shape) == 2 else float(preds[0])
+        pred_label = "Pneumonia / Abnormal" if score >= 0.5 else "Normal"
+        logger.info(f"Classification Score: {score:.4f} -> Predicted Class: {pred_label}")
 
     logger.info("Model verification check completed successfully!")
 

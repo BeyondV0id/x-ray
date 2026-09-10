@@ -1,0 +1,138 @@
+{
+  "agentic_ai_version": "1.0.0-medical",
+  "clinical_spatial_analysis": {
+    "diagnosis": "Pneumonia",
+    "is_abnormal": true,
+    "severity": "Moderate",
+    "affected_regions": [
+      "Right Middle / Lower Lobe"
+    ],
+    "total_opacity_ratio": 0.099,
+    "box_count": 1,
+    "primary_confidence": 0.914
+  },
+  "prescription_recommendation": {
+    "medications": [
+      {
+        "drug_name": "Cefuroxime Axetil",
+        "dosage": "500 mg oral",
+        "frequency": "Every 12 hours (BID)",
+        "duration": "7 - 10 Days",
+        "indication": "Second-generation cephalosporin for moderate lower respiratory tract infection."
+      },
+      {
+        "drug_name": "Levofloxacin",
+        "dosage": "500 mg oral",
+        "frequency": "Once daily (QD)",
+        "duration": "7 Days",
+        "indication": "Respiratory fluoroquinolone for moderate-to-severe pneumonia."
+      },
+      {
+        "drug_name": "Paracetamol / Acetaminophen",
+        "dosage": "500 mg - 650 mg oral",
+        "frequency": "Every 6 hours as needed (PRN)",
+        "duration": "As needed for fever > 38.0\u00b0C or pleuritic pain",
+        "indication": "Antipyretic and analgesic symptom relief."
+      },
+      {
+        "drug_name": "N-Acetylcysteine / Guaifenesin",
+        "dosage": "600 mg oral",
+        "frequency": "Twice daily (BID)",
+        "duration": "7 Days",
+        "indication": "Mucolytic expectorant to promote airway secretion clearance."
+      }
+    ],
+    "clinical_notes": "Pharmacotherapy tailored for Moderate Pneumonia. Verify renal function and allergy profile prior to administration.",
+    "disclaimer": "DISCLAIMER: Automated recommendations generated for clinical decision support. Final prescribing rights rest with licensed physicians."
+  },
+  "health_monitoring_protocol": {
+    "vital_checks": [
+      {
+        "parameter": "Pulse Oximetry (SpO2)",
+        "frequency": "Every 6 Hours",
+        "target_threshold": ">= 94% on Room Air",
+        "action_threshold": "< 92% requires immediate supplemental O2 and urgent medical evaluation"
+      },
+      {
+        "parameter": "Body Temperature",
+        "frequency": "Every 6 Hours",
+        "target_threshold": "< 37.5\u00b0C",
+        "action_threshold": "> 38.5\u00b0C refractory to antipyretics"
+      },
+      {
+        "parameter": "Respiratory Rate (BPM)",
+        "frequency": "Every 6 Hours",
+        "target_threshold": "12 - 20 breaths/min",
+        "action_threshold": "> 25 breaths/min (Tachypnea)"
+      },
+      {
+        "parameter": "Symptom Dyspnea Score",
+        "frequency": "Twice Daily",
+        "target_threshold": "Scale 0-10 (Mild breathlessness <= 3)",
+        "action_threshold": "Score >= 6 or sudden progression"
+      }
+    ],
+    "red_flag_warning_signs": [
+      "Oxygen saturation (SpO2) dropping below 92%",
+      "Coughing up blood or rust-colored sputum (Hemoptysis)",
+      "Inability to complete full sentences due to shortness of breath",
+      "Confusion, altered mental state, or severe lethargy",
+      "Pleuritic chest pain increasing sharply on deep inspiration"
+    ],
+    "follow_up_schedule": {
+      "repeat_xray_days": 7,
+      "physician_reevaluation": "Within 48-72 hours for treatment response check"
+    }
+  },
+  "pulmonary_nutrition_plan": {
+    "daily_hydration_liters": 3.0,
+    "hydration_guideline": "Consume warm fluids (herbal teas, warm water, broths) throughout the day to thin airway secretions and facilitate mucus clearance.",
+    "protein_target": "1.2g - 1.5g / kg body weight daily (Essential for pulmonary tissue repair and immune cell synthesis)",
+    "key_nutritional_pillars": [
+      {
+        "pillar": "Anti-Inflammatory Omega-3 Fatty Acids",
+        "sources": [
+          "Salmon",
+          "Flaxseeds",
+          "Chia seeds",
+          "Walnuts",
+          "Extra virgin olive oil"
+        ],
+        "benefit": "Reduces lung tissue inflammatory cytokine activity."
+      },
+      {
+        "pillar": "Antioxidants & Immune Support (Vitamin C & Zinc)",
+        "sources": [
+          "Citrus fruits",
+          "Bell peppers",
+          "Berries",
+          "Spinach",
+          "Pumpkin seeds"
+        ],
+        "benefit": "Scavenges reactive oxygen species in inflamed pulmonary alveoli."
+      },
+      {
+        "pillar": "Vitamin D3 (Immune Regulation)",
+        "sources": [
+          "Sunlight exposure",
+          "Fortified eggs/milk",
+          "Vitamin D3 2000 IU supplement"
+        ],
+        "benefit": "Enhances antimicrobial peptide expression in respiratory epithelium."
+      }
+    ],
+    "foods_to_avoid": [
+      "Excess dairy products if they exacerbate thick bronchial mucus",
+      "High-sodium processed meals (causes fluid retention and respiratory burden)",
+      "Carbonated beverages & gas-forming foods (increases abdominal pressure on diaphragm)",
+      "Refined sugars (suppresses neutrophil phagocytic activity)"
+    ],
+    "sample_meal_plan": {
+      "breakfast": "Oatmeal topped with walnuts, flaxseeds, and fresh blueberries + Warm lemon ginger tea",
+      "lunch": "Grilled salmon or tofu salad with spinach, olive oil dressing, and quinoa",
+      "afternoon_snack": "Bone broth or vegetable soup + Pumpkin seeds",
+      "dinner": "Steamed chicken breast/lentils with garlic broccoli and sweet potato"
+    }
+  },
+  "overall_summary": "Agentic AI analysis completed for Pneumonia. Severity: Moderate. Affected Regions: Right Middle / Lower Lobe."
+}

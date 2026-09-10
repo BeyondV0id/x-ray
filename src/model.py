@@ -26,7 +26,8 @@ def build_fpn(backbone_outputs: List[tf.Tensor], feature_channels: int = 256) ->
     
     # P6 and P7
     p6 = layers.Conv2D(feature_channels, 3, 2, "same", name="fpn_p6")(c5)
-    p7 = layers.Conv2D(feature_channels, 3, 2, "same", name="fpn_p7")(tf.nn.relu(p6))
+    p6_act = layers.Activation("relu", name="fpn_p6_relu")(p6)
+    p7 = layers.Conv2D(feature_channels, 3, 2, "same", name="fpn_p7")(p6_act)
     
     return [p3, p4, p5, p6, p7]
 

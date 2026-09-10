@@ -309,52 +309,168 @@ def create_split_datasets(
     logger.info(f"Dataset split complete - Train: {len(train_records)}, Val: {len(val_records)}, Test: {len(test_records)}")
     return train_records, val_records, test_records
 
+class AnchorBoxEncoder:
+    """
+    Generates anchor boxes and encodes ground truth bounding boxes and class labels
+    for RetinaNet training on multi-resolution images.
+    """
+    def __init__(self, image_size=512, num_classes=2):
+        self.image_size = image_size
+        self.num_classes = num_classes
+        self.aspect_ratios = [0.5, 1.0, 2.0]
+        self.scales = [1.0, 1.25, 1.6]
+        self.strides = [8, 16, 32, 64, 128]
+        self.anchor_areas = [32**2, 64**2, 128**2, 256**2, 512**2]
+        self.anchors = self._generate_anchors()
+
+    def _generate_anchors(self):
+        anchors = []
+        for stride, area in zip(self.strides, self.anchor_areas):
+            grid_h = self.image_size // stride
+            grid_w = self.image_size // stride
+            
+            ratio_sqrts = np.sqrt(self.aspect_ratios)
+            heights = np.sqrt(area) / ratio_sqrts
+            widths = np.sqrt(area) * ratio_sqrts
+            
+            anchor_dims = []
+            for scale in self.scales:
+                for h, w in zip(heights, widths):
+                    anchor_dims.append([h * scale, w * scale])
+            anchor_dims = np.array(anchor_dims)
+            
+            y_centers = (np.arange(grid_h) + 0.5) * stride / self.image_size
+            x_centers = (np.arange(grid_w) + 0.5) * stride / self.image_size
+            
+            x_grid, y_grid = np.meshgrid(x_centers, y_centers)
+            centers = np.stack([y_grid.flatten(), x_grid.flatten()], axis=-1)
+            
+            for c in centers:
+                cy, cx = c[0], c[1]
+                for ah, aw in anchor_dims:
+                    norm_h = ah / self.image_size
+                    norm_w = aw / self.image_size
+                    ymin = cy - norm_h / 2.0
+                    xmin = cx - norm_w / 2.0
+                    ymax = cy + norm_h / 2.0
+                    xmax = cx + norm_w / 2.0
+                    anchors.append([ymin, xmin, ymax, xmax])
+                    
+        return np.array(anchors, dtype=np.float32)
+
+    def encode(self, gt_boxes, gt_classes):
+        num_anchors = len(self.anchors)
+        cls_targets = np.zeros((num_anchors, self.num_classes), dtype=np.float32)
+        box_targets = np.zeros((num_anchors, 4), dtype=np.float32)
+        
+        if len(gt_boxes) == 0:
+            return cls_targets, box_targets
+            
+        anc = self.anchors
+        gt = np.array(gt_boxes, dtype=np.float32)
+        
+        iy_min = np.maximum(anc[:, None, 0], gt[None, :, 0])
+        ix_min = np.maximum(anc[:, None, 1], gt[None, :, 1])
+        iy_max = np.minimum(anc[:, None, 2], gt[None, :, 2])
+        ix_max = np.minimum(anc[:, None, 3], gt[None, :, 3])
+        
+        inter_h = np.maximum(0.0, iy_max - iy_min)
+        inter_w = np.maximum(0.0, ix_max - ix_min)
+        intersection = inter_h * inter_w
+        
+        anc_area = (anc[:, 2] - anc[:, 0]) * (anc[:, 3] - anc[:, 1])
+        gt_area = (gt[:, 2] - gt[:, 0]) * (gt[:, 3] - gt[:, 1])
+        
+        union = anc_area[:, None] + gt_area[None, :] - intersection + 1e-7
+        iou = intersection / union
+        
+        best_gt_idx = np.argmax(iou, axis=1)
+        best_iou = np.max(iou, axis=1)
+        
+        pos_mask = best_iou >= 0.4
+        pos_indices = np.where(pos_mask)[0]
+        
+        if len(pos_indices) > 0:
+            matched_gt_idx = best_gt_idx[pos_indices]
+            gt_classes_arr = np.array(gt_classes)
+            matched_cls = gt_classes_arr[matched_gt_idx]
+            
+            for c_i in range(self.num_classes):
+                c_mask = (matched_cls == c_i)
+                cls_targets[pos_indices[c_mask], c_i] = 1.0
+                
+            anc_pos = anc[pos_indices]
+            gt_pos = gt[matched_gt_idx]
+            
+            a_h = np.maximum(1e-4, anc_pos[:, 2] - anc_pos[:, 0])
+            a_w = np.maximum(1e-4, anc_pos[:, 3] - anc_pos[:, 1])
+            a_cy = anc_pos[:, 0] + a_h * 0.5
+            a_cx = anc_pos[:, 1] + a_w * 0.5
+            
+            g_h = np.maximum(1e-4, gt_pos[:, 2] - gt_pos[:, 0])
+            g_w = np.maximum(1e-4, gt_pos[:, 3] - gt_pos[:, 1])
+            g_cy = gt_pos[:, 0] + g_h * 0.5
+            g_cx = gt_pos[:, 1] + g_w * 0.5
+            
+            ty = (g_cy - a_cy) / a_h
+            tx = (g_cx - a_cx) / a_w
+            th = np.log(np.maximum(1e-4, g_h / a_h))
+            tw = np.log(np.maximum(1e-4, g_w / a_w))
+            
+            box_targets[pos_indices] = np.stack([ty, tx, th, tw], axis=-1)
+            
+        return cls_targets, box_targets
+
 def build_tf_dataset(
     records: List[Dict[str, Any]],
     image_size: int = 512,
     batch_size: int = 8,
     is_training: bool = True,
-    max_boxes_per_image: int = 100
+    num_classes: int = 2
 ):
     """
-    Build a tf.data.Dataset generator for object detection training/validation.
+    Build a tf.data.Dataset generator for RetinaNet object detection training/validation.
+    Yields (x_image, {"cls_predictions": y_cls, "box_predictions": y_box})
     """
     import tensorflow as tf
+    import random
+    
+    encoder = AnchorBoxEncoder(image_size=image_size, num_classes=num_classes)
+    num_anchors = len(encoder.anchors)
+    
+    records_copy = list(records)
+    if is_training:
+        random.shuffle(records_copy)
+
     def generator():
-        for rec in records:
+        for rec in records_copy:
             img_path = rec["image_path"]
             boxes = rec.get("boxes", [])
             cls_id = rec.get("class_id", 0)
             
-            # Load image
             try:
                 img = load_image_as_rgb(img_path, target_size=(image_size, image_size))
                 img = img.astype(np.float32) / 255.0
             except Exception:
                 img = np.zeros((image_size, image_size, 3), dtype=np.float32)
                 
-            # Pad boxes to fixed shape (max_boxes_per_image, 4)
-            padded_boxes = np.zeros((max_boxes_per_image, 4), dtype=np.float32)
-            padded_classes = np.full((max_boxes_per_image,), -1, dtype=np.int32)
+            gt_classes = [cls_id] * len(boxes)
+            cls_targets, box_targets = encoder.encode(boxes, gt_classes)
             
-            n = min(len(boxes), max_boxes_per_image)
-            if n > 0:
-                padded_boxes[:n] = np.array(boxes[:n], dtype=np.float32)
-                padded_classes[:n] = cls_id
-                
-            yield img, padded_boxes, padded_classes, n
+            yield img, {"cls_predictions": cls_targets, "box_predictions": box_targets}
 
     output_signature = (
         tf.TensorSpec(shape=(image_size, image_size, 3), dtype=tf.float32),
-        tf.TensorSpec(shape=(max_boxes_per_image, 4), dtype=tf.float32),
-        tf.TensorSpec(shape=(max_boxes_per_image,), dtype=tf.int32),
-        tf.TensorSpec(shape=(), dtype=tf.int32)
+        {
+            "cls_predictions": tf.TensorSpec(shape=(num_anchors, num_classes), dtype=tf.float32),
+            "box_predictions": tf.TensorSpec(shape=(num_anchors, 4), dtype=tf.float32)
+        }
     )
     
     ds = tf.data.Dataset.from_generator(generator, output_signature=output_signature)
     
     if is_training:
-        ds = ds.shuffle(buffer_size=min(len(records) + 1, 1000))
+        ds = ds.shuffle(buffer_size=32)
         
-    ds = ds.batch(batch_size).prefetch(tf.data.AUTOTUNE)
+    ds = ds.batch(batch_size).prefetch(2)
     return ds

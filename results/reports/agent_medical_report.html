@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic AI Medical Clinical Report</title>
+    <style>
+        :root {
+            --primary: #1a365d;
+            --accent: #2b6cb0;
+            --bg: #f7fafc;
+            --card-bg: #ffffff;
+            --text: #2d3748;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 24px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .header {
+            background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 24px;
+        }
+        .header h1 { margin: 0 0 8px 0; font-size: 26px; }
+        .header p { margin: 0; opacity: 0.9; font-size: 14px; }
+        .card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+        .card h3 {
+            margin-top: 0;
+            color: var(--primary);
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 8px;
+        }
+        .card-sub {
+            background: #f8fafc;
+            border-left: 4px solid #3182ce;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .badge-severity {
+            background-color: #ffc107;
+            color: white;
+        }
+        .badge-success { background-color: #c6f6d5; color: #22543d; }
+        .badge-danger { background-color: #fed7d7; color: #742a2a; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+        th, td {
+            text-align: left;
+            padding: 10px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
+        }
+        th { background-color: #edf2f7; color: #4a5568; }
+        ul.red-flags {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        ul.red-flags li {
+            background: #fff5f5;
+            color: #c53030;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        .disclaimer {
+            background-color: #fffaf0;
+            border: 1px solid #feebc8;
+            color: #744210;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            margin-top: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 Agentic AI Healthcare System</h1>
+            <p>Integrated Chest X-Ray Vision & Autonomous Clinical Decision Support Engine</p>
+        </div>
+
+        <!-- 1. Clinical Spatial Findings -->
+        <div class="card">
+            <h3>🫁 1. Clinical Spatial & Severity Analysis</h3>
+            <p><strong>Primary Diagnosis:</strong> Pneumonia</p>
+            <p><strong>Severity Grade:</strong> <span class="badge badge-severity">Moderate</span></p>
+            <p><strong>Affected Lung Regions:</strong> Right Middle / Lower Lobe</p>
+            <p><strong>Opacity Area Ratio:</strong> 9.9% of lung field</p>
+            <p><strong>Vision Model Confidence:</strong> 91.4%</p>
+        </div>
+
+        <!-- 2. Prescription & Pharmacotherapy -->
+        <div class="card">
+            <h3>💊 2. Evidence-Based Prescription & Pharmacotherapy</h3>
+            <p><em>Pharmacotherapy tailored for Moderate Pneumonia. Verify renal function and allergy profile prior to administration.</em></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Medication</th>
+                        <th>Dosage</th>
+                        <th>Frequency</th>
+                        <th>Duration</th>
+                        <th>Clinical Indication</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td><strong>Cefuroxime Axetil</strong></td>
+            <td>500 mg oral</td>
+            <td>Every 12 hours (BID)</td>
+            <td>7 - 10 Days</td>
+            <td>Second-generation cephalosporin for moderate lower respiratory tract infection.</td>
+        </tr>
+        
+        <tr>
+            <td><strong>Levofloxacin</strong></td>
+            <td>500 mg oral</td>
+            <td>Once daily (QD)</td>
+            <td>7 Days</td>
+            <td>Respiratory fluoroquinolone for moderate-to-severe pneumonia.</td>
+        </tr>
+        
+        <tr>
+            <td><strong>Paracetamol / Acetaminophen</strong></td>
+            <td>500 mg - 650 mg oral</td>
+            <td>Every 6 hours as needed (PRN)</td>
+            <td>As needed for fever > 38.0°C or pleuritic pain</td>
+            <td>Antipyretic and analgesic symptom relief.</td>
+        </tr>
+        
+        <tr>
+            <td><strong>N-Acetylcysteine / Guaifenesin</strong></td>
+            <td>600 mg oral</td>
+            <td>Twice daily (BID)</td>
+            <td>7 Days</td>
+            <td>Mucolytic expectorant to promote airway secretion clearance.</td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 3. Health & Symptom Monitoring Protocol -->
+        <div class="card">
+            <h3>📊 3. Daily Health & Vital Signs Protocol</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Frequency</th>
+                        <th>Target Threshold</th>
+                        <th>Action Threshold (Alert)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td><strong>Pulse Oximetry (SpO2)</strong></td>
+            <td>Every 6 Hours</td>
+            <td><span class="badge badge-success">>= 94% on Room Air</span></td>
+            <td><span class="badge badge-danger">< 92% requires immediate supplemental O2 and urgent medical evaluation</span></td>
+        </tr>
+        
+        <tr>
+            <td><strong>Body Temperature</strong></td>
+            <td>Every 6 Hours</td>
+            <td><span class="badge badge-success">< 37.5°C</span></td>
+            <td><span class="badge badge-danger">> 38.5°C refractory to antipyretics</span></td>
+        </tr>
+        
+        <tr>
+            <td><strong>Respiratory Rate (BPM)</strong></td>
+            <td>Every 6 Hours</td>
+            <td><span class="badge badge-success">12 - 20 breaths/min</span></td>
+            <td><span class="badge badge-danger">> 25 breaths/min (Tachypnea)</span></td>
+        </tr>
+        
+        <tr>
+            <td><strong>Symptom Dyspnea Score</strong></td>
+            <td>Twice Daily</td>
+            <td><span class="badge badge-success">Scale 0-10 (Mild breathlessness <= 3)</span></td>
+            <td><span class="badge badge-danger">Score >= 6 or sudden progression</span></td>
+        </tr>
+        
+                </tbody>
+            </table>
+            <h4>🚨 Emergency Red-Flag Warning Signs:</h4>
+            <ul class="red-flags">
+                <li>⚠️ Oxygen saturation (SpO2) dropping below 92%</li><li>⚠️ Coughing up blood or rust-colored sputum (Hemoptysis)</li><li>⚠️ Inability to complete full sentences due to shortness of breath</li><li>⚠️ Confusion, altered mental state, or severe lethargy</li><li>⚠️ Pleuritic chest pain increasing sharply on deep inspiration</li>
+            </ul>
+        </div>
+
+        <!-- 4. Pulmonary Nutrition Plan -->
+        <div class="card">
+            <h3>🥗 4. Pulmonary Nutrition & Recovery Diet Plan</h3>
+            <p><strong>Daily Hydration Target:</strong> 3.0 Liters (Warm fluids & broths)</p>
+            <p><strong>Protein Requirement:</strong> 1.2g - 1.5g / kg body weight daily (Essential for pulmonary tissue repair and immune cell synthesis)</p>
+            
+        <div class="card card-sub">
+            <h5>🥦 Anti-Inflammatory Omega-3 Fatty Acids</h5>
+            <p><strong>Benefit:</strong> Reduces lung tissue inflammatory cytokine activity.</p>
+            <p><strong>Sources:</strong> Salmon, Flaxseeds, Chia seeds, Walnuts, Extra virgin olive oil</p>
+        </div>
+        
+        <div class="card card-sub">
+            <h5>🥦 Antioxidants & Immune Support (Vitamin C & Zinc)</h5>
+            <p><strong>Benefit:</strong> Scavenges reactive oxygen species in inflamed pulmonary alveoli.</p>
+            <p><strong>Sources:</strong> Citrus fruits, Bell peppers, Berries, Spinach, Pumpkin seeds</p>
+        </div>
+        
+        <div class="card card-sub">
+            <h5>🥦 Vitamin D3 (Immune Regulation)</h5>
+            <p><strong>Benefit:</strong> Enhances antimicrobial peptide expression in respiratory epithelium.</p>
+            <p><strong>Sources:</strong> Sunlight exposure, Fortified eggs/milk, Vitamin D3 2000 IU supplement</p>
+        </div>
+        
+        </div>
+
+        <div class="disclaimer">
+            ⚠️ <strong>CLINICAL DISCLAIMER:</strong> DISCLAIMER: Automated recommendations generated for clinical decision support. Final prescribing rights rest with licensed physicians.
+        </div>
+    </div>
+</body>
+</html>

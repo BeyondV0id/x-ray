@@ -1,15 +1,26 @@
-# Central Configuration for Chest X-ray Disease Detection & Localization
+# Central Configuration for Chest X-ray Disease Classification & Detection
 
-project_name: "Chest X-ray Disease Detection and Localization"
+project_name: "Chest X-ray Disease Classification and Detection"
 version: "1.0.0"
 
-# Class Mappings
+# Active Task & Class Mappings
+task: "classification"
 num_classes: 2
 classes:
-  0: "Pneumonia"
-  1: "Tuberculosis"
+  0: "Normal"
+  1: "Pneumonia"
 
-# Model & Architecture Configuration
+# Classification Model Configuration
+classification_model:
+  name: "efficientnetb0_classifier"
+  backbone: "EfficientNetB0"
+  input_shape: [384, 384, 3]
+  image_size: 384
+  batch_size: 16
+  learning_rate: 0.0001
+  epochs: 30
+
+# Model & Architecture Configuration (Object Detection)
 model:
   name: "retinanet_efficientnetb0"
   backbone: "EfficientNetB0"
@@ -25,7 +36,7 @@ model:
 
 # Training Hyperparameters
 training:
-  batch_size: 8
+  batch_size: 16
   learning_rate: 0.0001
   weight_decay: 0.0001
   epochs: 30
@@ -46,8 +57,6 @@ inference:
 paths:
   data_raw: "data/raw"
   data_processed: "data/processed"
-  data_pneumonia: "data/pneumonia"
-  data_tuberculosis: "data/tuberculosis"
   models: "models"
   models_checkpoints: "models/checkpoints"
   models_pretrained: "models/pretrained"
@@ -58,4 +67,5 @@ paths:
   results_predictions: "results/predictions"
   results_metrics: "results/metrics"
   results_dataset_samples: "results/dataset_samples"
+  results_reports: "results/reports"
   logs_tensorboard: "logs/tensorboard"

@@ -399,3 +399,864 @@ input[type="range"] {
     color: var(--text-muted);
     padding: 10px 0;
 }
+
+/* ============================================================
+   ROLE SELECTOR
+   ============================================================ */
+.role-selector {
+    padding: 16px 24px;
+}
+
+.role-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.role-header span {
+    font-size: 1.4rem;
+}
+
+.role-header h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.role-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.role-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: left;
+    font-family: var(--font-sans);
+}
+
+.role-btn:hover {
+    background: rgba(59, 130, 246, 0.06);
+    border-color: rgba(59, 130, 246, 0.25);
+    transform: translateY(-2px);
+}
+
+.role-btn.active {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.14), rgba(139, 92, 246, 0.08));
+    border-color: var(--primary);
+    box-shadow: 0 0 24px rgba(59, 130, 246, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.role-emoji {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.role-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: block;
+}
+
+.role-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    display: block;
+    margin-top: 3px;
+}
+
+/* ============================================================
+   CLINICAL SECTION & ANIMATIONS
+   ============================================================ */
+.clinical-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Severity Bar */
+.severity-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.severity-header h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.panel-icon {
+    font-size: 1.2rem;
+}
+
+.severity-badge {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    letter-spacing: 0.5px;
+}
+
+.severity-badge.mild {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.severity-badge.moderate {
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.severity-badge.severe {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.severity-summary {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+.severity-summary strong {
+    color: var(--text-main);
+}
+
+/* Clinical Grid */
+.clinical-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Panel Headers */
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.panel-header h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0;
+}
+
+.role-indicator {
+    font-size: 0.72rem;
+    padding: 4px 10px;
+    border-radius: 8px;
+    background: rgba(59, 130, 246, 0.12);
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* ============================================================
+   PRESCRIPTION CARDS
+   ============================================================ */
+.disease-rx-group {
+    margin-bottom: 24px;
+    animation: fadeInUp 0.4s ease both;
+}
+
+.disease-rx-group:last-child {
+    margin-bottom: 0;
+}
+
+.disease-rx-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.disease-rx-title h3 {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.disease-rx-severity {
+    font-size: 0.72rem;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.rx-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.rx-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 14px 16px;
+    transition: all 0.25s ease;
+    animation: fadeInUp 0.4s ease both;
+}
+
+.rx-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.rx-card.excluded {
+    opacity: 0.35;
+}
+
+.rx-card.excluded .rx-drug-name,
+.rx-card.excluded .rx-dose {
+    text-decoration: line-through;
+}
+
+.rx-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.rx-drug-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.rx-drug-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.rx-dose {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.rx-class-badge {
+    padding: 3px 10px;
+    border-radius: 8px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.rx-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.rx-detail-item {
+    font-size: 0.8rem;
+}
+
+.rx-detail-label {
+    color: var(--text-muted);
+    display: block;
+    font-size: 0.68rem;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.rx-detail-value {
+    color: var(--text-main);
+    font-weight: 500;
+}
+
+.rx-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 0.76rem;
+    color: var(--text-muted);
+}
+
+.rx-toggle input[type="checkbox"] {
+    accent-color: var(--primary);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.rx-patient-instruction {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: rgba(59, 130, 246, 0.06);
+    border-radius: 8px;
+    font-size: 0.82rem;
+    color: #93c5fd;
+    line-height: 1.5;
+}
+
+/* ============================================================
+   FOLLOW-UP TIMELINE
+   ============================================================ */
+.timeline {
+    position: relative;
+    padding-left: 28px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--primary), rgba(139, 92, 246, 0.3));
+    border-radius: 2px;
+}
+
+.timeline-item {
+    position: relative;
+    padding: 10px 0;
+    animation: fadeInUp 0.4s ease both;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -24px;
+    top: 14px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--bg-dark);
+    border: 3px solid var(--primary);
+    z-index: 1;
+}
+
+.timeline-dot.urgent {
+    border-color: #f59e0b;
+    background: rgba(245, 158, 11, 0.2);
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+}
+
+.timeline-content {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 14px 16px;
+    transition: all 0.2s ease;
+}
+
+.timeline-content:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.timeline-time {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--primary);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.urgent-tag {
+    font-size: 0.62rem;
+    padding: 2px 8px;
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+    border-radius: 6px;
+    font-weight: 700;
+}
+
+.timeline-action {
+    font-size: 0.83rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.timeline-disease-tag {
+    font-size: 0.68rem;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    margin-top: 6px;
+    display: inline-block;
+}
+
+/* ============================================================
+   CLINICAL NOTES
+   ============================================================ */
+.notes-panel textarea {
+    width: 100%;
+    min-height: 140px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 16px;
+    color: var(--text-main);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    line-height: 1.6;
+}
+
+.notes-panel textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* ============================================================
+   PATIENT LIFESTYLE
+   ============================================================ */
+.patient-explanation {
+    background: rgba(59, 130, 246, 0.08);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 24px;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--text-main);
+}
+
+.patient-explanation h3 {
+    margin-bottom: 8px;
+    font-size: 1rem;
+    color: #93c5fd;
+}
+
+.lifestyle-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.lifestyle-item {
+    padding: 12px 16px;
+    background: rgba(16, 185, 129, 0.06);
+    border: 1px solid rgba(16, 185, 129, 0.15);
+    border-radius: 10px;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--text-main);
+    animation: fadeInUp 0.3s ease both;
+}
+
+.warning-section {
+    margin-top: 8px;
+}
+
+.warning-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #ef4444;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.warning-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.warning-item {
+    padding: 10px 16px;
+    background: rgba(239, 68, 68, 0.06);
+    border: 1px solid rgba(239, 68, 68, 0.15);
+    border-radius: 10px;
+    font-size: 0.85rem;
+    color: #fca5a5;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    animation: fadeInUp 0.3s ease both;
+}
+
+.warning-item::before {
+    content: '⚠️';
+    flex-shrink: 0;
+}
+
+/* ============================================================
+   DIET RECOMMENDATION AGENT
+   ============================================================ */
+.diet-panel {
+    animation: fadeInUp 0.5s ease both;
+}
+
+.diet-badge {
+    font-size: 0.72rem;
+    padding: 4px 12px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(34, 197, 94, 0.1));
+    color: #34d399;
+    font-weight: 700;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.diet-overview {
+    background: rgba(16, 185, 129, 0.06);
+    border: 1px solid rgba(16, 185, 129, 0.15);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-main);
+}
+
+.diet-overview h3 {
+    color: #34d399;
+    margin-bottom: 6px;
+    font-size: 1rem;
+}
+
+.diet-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.diet-category {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+    animation: fadeInUp 0.4s ease both;
+}
+
+.diet-category-title {
+    font-weight: 700;
+    font-size: 0.92rem;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.diet-items {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.diet-item {
+    padding: 8px 12px;
+    background: rgba(16, 185, 129, 0.04);
+    border-radius: 8px;
+    font-size: 0.84rem;
+    color: var(--text-main);
+    line-height: 1.4;
+}
+
+.diet-item.avoid {
+    background: rgba(239, 68, 68, 0.06);
+    border-left: 3px solid rgba(239, 68, 68, 0.4);
+}
+
+.diet-item.recommend {
+    background: rgba(16, 185, 129, 0.06);
+    border-left: 3px solid rgba(16, 185, 129, 0.4);
+}
+
+.diet-meal-plan {
+    background: rgba(139, 92, 246, 0.06);
+    border: 1px solid rgba(139, 92, 246, 0.15);
+    border-radius: 12px;
+    padding: 16px 20px;
+}
+
+.diet-meal-plan h4 {
+    color: #a78bfa;
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.meal-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.meal-row:last-child {
+    border-bottom: none;
+}
+
+.meal-time {
+    font-weight: 700;
+    font-size: 0.82rem;
+    color: var(--primary);
+    min-width: 90px;
+    flex-shrink: 0;
+}
+
+.meal-desc {
+    font-size: 0.84rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.diet-nutrients {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+.nutrient-tag {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-color);
+}
+
+.nutrient-tag.highlight {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: rgba(59, 130, 246, 0.3);
+    color: #93c5fd;
+}
+
+/* ============================================================
+   EDUCATION PANEL
+   ============================================================ */
+.edu-section {
+    margin-bottom: 24px;
+    animation: fadeInUp 0.4s ease both;
+}
+
+.edu-section:last-child {
+    margin-bottom: 0;
+}
+
+.edu-section-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.edu-text {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+}
+
+.edu-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.edu-list li {
+    padding: 8px 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.84rem;
+    color: var(--text-main);
+}
+
+.edu-list li::before {
+    content: '▸ ';
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.edu-refs {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.edu-ref {
+    padding: 8px 14px;
+    background: rgba(139, 92, 246, 0.06);
+    border: 1px solid rgba(139, 92, 246, 0.15);
+    border-radius: 8px;
+    font-size: 0.82rem;
+    color: #a78bfa;
+    font-style: italic;
+}
+
+.edu-disease-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.edu-disease-header h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+/* ============================================================
+   REPORT ACTIONS
+   ============================================================ */
+.report-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    padding: 20px 24px;
+}
+
+.btn-report {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-family: var(--font-sans);
+    background: linear-gradient(135deg, var(--primary), #6366f1);
+    color: white;
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.25);
+}
+
+.btn-report:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(59, 130, 246, 0.4);
+}
+
+.btn-report.secondary {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    box-shadow: none;
+}
+
+.btn-report.secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 700px) {
+    .role-buttons {
+        grid-template-columns: 1fr;
+    }
+    .clinical-grid {
+        grid-template-columns: 1fr;
+    }
+    .rx-details {
+        grid-template-columns: 1fr;
+    }
+    .report-actions {
+        flex-direction: column;
+    }
+    .diet-grid {
+        grid-template-columns: 1fr;
+    }
+    .app-header {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+    .brand {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 960px) {
+    .clinical-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================================
+   PRINT STYLES
+   ============================================================ */
+@media print {
+    body {
+        background: white;
+        color: black;
+        padding: 10px;
+    }
+    .app-header, .disclaimer-banner, .role-selector,
+    .control-panel, .report-actions, .app-footer,
+    .btn-primary, .drop-zone, .controls-form {
+        display: none !important;
+    }
+    .glass-card {
+        background: white;
+        border: 1px solid #ddd;
+        backdrop-filter: none;
+        box-shadow: none;
+    }
+    .hidden {
+        display: none !important;
+    }
+    .clinical-section, .severity-bar, .prescription-panel,
+    .followup-panel, .notes-panel, .diet-panel, .lifestyle-panel,
+    .education-panel {
+        break-inside: avoid;
+    }
+}
