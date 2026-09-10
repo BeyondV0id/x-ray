@@ -1,0 +1,29 @@
+{
+  "python_version": "3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]",
+  "platform": "win32",
+  "gpu_status": {
+    "gpu_available": false,
+    "device_count": 0,
+    "device_names": [],
+    "tf_version": "Not Installed"
+  },
+  "created_directories": [
+    "E:\\XRAY\\data\\raw",
+    "E:\\XRAY\\data\\processed",
+    "E:\\XRAY\\data\\pneumonia",
+    "E:\\XRAY\\data\\tuberculosis",
+    "E:\\XRAY\\models",
+    "E:\\XRAY\\models\\checkpoints",
+    "E:\\XRAY\\models\\pretrained",
+    "E:\\XRAY\\models\\production",
+    "notebooks",
+    "E:\\XRAY\\results",
+    "E:\\XRAY\\results\\validation",
+    "E:\\XRAY\\results\\plots",
+    "E:\\XRAY\\results\\predictions",
+    "E:\\XRAY\\results\\metrics",
+    "E:\\XRAY\\results\\dataset_samples",
+    "E:\\XRAY\\logs\\tensorboard",
+    "docs"
+  ]
+}

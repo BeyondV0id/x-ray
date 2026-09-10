@@ -33,16 +33,6 @@ models/production/saved_model/
 # Logs & Results
 logs/tensorboard/*
 !logs/tensorboard/.gitkeep
-results/validation/*
-!results/validation/.gitkeep
-results/plots/*
-!results/plots/.gitkeep
-results/predictions/*
-!results/predictions/.gitkeep
-results/metrics/*
-!results/metrics/.gitkeep
-results/dataset_samples/*
-!results/dataset_samples/.gitkeep
 
 # IDEs & OS
 .vscode/

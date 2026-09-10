@@ -1,0 +1,6 @@
+{
+  "model": "RetinaNet_ResNet50_FPN",
+  "mean_iou": 0.0,
+  "map_50": 0.0,
+  "evaluated_ground_truths": 0
+}

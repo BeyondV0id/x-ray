@@ -1,0 +1,23 @@
+{
+  "rsna_pneumonia": {
+    "total_images": 0,
+    "positive_cases": 0,
+    "negative_cases": 0,
+    "total_bounding_boxes": 0,
+    "missing_files": 0,
+    "invalid_boxes": 0
+  },
+  "tbx11k_tuberculosis": {
+    "total_images": 0,
+    "positive_cases": 0,
+    "negative_cases": 0,
+    "total_bounding_boxes": 0,
+    "missing_files": 0,
+    "invalid_boxes": 0
+  },
+  "overall_summary": {
+    "total_xray_images": 0,
+    "total_annotations": 0,
+    "validation_passed": true
+  }
+}

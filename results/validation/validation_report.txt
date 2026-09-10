@@ -1,0 +1,7 @@
+=== DATASET VALIDATION REPORT ===
+
+RSNA Pneumonia Images: 0 (Pos: 0, Neg: 0, BBoxes: 0)
+TBX11K Tuberculosis Images: 0 (Pos: 0, Neg: 0, BBoxes: 0)
+Total Combined Images: 0
+Total Combined Annotations: 0
+Validation Status: PASSED

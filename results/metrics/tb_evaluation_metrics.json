@@ -1,0 +1,16 @@
+{
+  "model": "EfficientNetB0_TBX11K",
+  "accuracy": 0.9848088004190676,
+  "roc_auc": 0.997366504854369,
+  "average_precision": 0.9893674817448367,
+  "precision": 0.9375,
+  "sensitivity_recall": 0.970873786407767,
+  "specificity": 0.9875,
+  "f1_score": 0.9538950715421304,
+  "confusion_matrix": {
+    "TN": 1580,
+    "FP": 20,
+    "FN": 9,
+    "TP": 300
+  }
+}
