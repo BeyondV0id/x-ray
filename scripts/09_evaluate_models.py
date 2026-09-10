@@ -101,15 +101,15 @@ def evaluate_tb_model(model_path: Path, csv_path: Path, img_dir: Path, output_me
     specificity = tn / (tn + fp) if (tn + fp) > 0 else 0.0
 
     print("\n" + "="*60)
-    print("      📊 STATISTICAL EVALUATION REPORT (TB MODEL)")
+    print("      STATISTICAL EVALUATION REPORT (TB MODEL)")
     print("="*60)
-    print(f"  • Overall Accuracy:    {acc*100:.2f}%  (Overall correctness)")
-    print(f"  • ROC AUC Score:       {auc:.4f}     (Area Under Curve)")
-    print(f"  • Sensitivity/Recall:  {rec*100:.2f}%  (TB Detection Rate)")
-    print(f"  • Specificity:         {specificity*100:.2f}%  (Normal Detection Rate)")
-    print(f"  • Precision:           {prec*100:.2f}%  (Positive Predictive Value)")
-    print(f"  • F1-Score:            {f1:.4f}     (Harmonic Mean)")
-    print(f"  • Confusion Matrix:    TN={tn}, FP={fp}, FN={fn}, TP={tp}")
+    print(f"  - Overall Accuracy:    {acc*100:.2f}%  (Overall correctness)")
+    print(f"  - ROC AUC Score:       {auc:.4f}     (Area Under Curve)")
+    print(f"  - Sensitivity/Recall:  {rec*100:.2f}%  (TB Detection Rate)")
+    print(f"  - Specificity:         {specificity*100:.2f}%  (Normal Detection Rate)")
+    print(f"  - Precision:           {prec*100:.2f}%  (Positive Predictive Value)")
+    print(f"  - F1-Score:            {f1:.4f}     (Harmonic Mean)")
+    print(f"  - Confusion Matrix:    TN={tn}, FP={fp}, FN={fn}, TP={tp}")
     print("="*60 + "\n")
 
     output_metrics_dir.mkdir(parents=True, exist_ok=True)
