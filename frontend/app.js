@@ -237,14 +237,18 @@ document.addEventListener("DOMContentLoaded", () => {
         tbProbBar.style.width = `${tbPct}%`;
 
         diagStatus.textContent = data.primary_condition;
-        const agentRep = data.medical_agent_report;
+        const agentRep = data.medical_agent_report || {};
+        const spatialData = agentRep.clinical_spatial_analysis || agentRep.anatomical_findings || {};
+        const rxData = agentRep.prescription_recommendation || agentRep.prescriptions || {};
+        const monitorData = agentRep.health_monitoring_protocol || agentRep.health_monitoring || {};
+        const dietData = agentRep.pulmonary_nutrition_plan || agentRep.pulmonary_nutrition || {};
 
         if (data.primary_condition === "Normal") {
             severityBadge.textContent = "Normal / Healthy";
             severityBadge.style.background = "rgba(16, 185, 129, 0.2)";
             severityBadge.style.color = "#10b981";
         } else {
-            const sev = agentRep.anatomical_findings.severity_grade || "Moderate";
+            const sev = spatialData.severity || spatialData.severity_grade || "Moderate";
             severityBadge.textContent = `High Risk (${sev})`;
             severityBadge.style.background = "rgba(244, 63, 94, 0.2)";
             severityBadge.style.color = "#f43f5e";
@@ -271,21 +275,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Tab 3: Prescriptions
         medicationGrid.innerHTML = "";
-        const rxList = agentRep.prescriptions.medications || [];
+        const rxList = rxData.medications || [];
         rxList.forEach(m => {
             const mCard = document.createElement("div");
             mCard.className = "med-card";
             mCard.innerHTML = `
-                <div class="med-name">${m.drug} (${m.dosage})</div>
-                <div class="med-meta">Frequency: ${m.frequency} | Duration: ${m.duration}</div>
-                <div class="med-instructions">Indication & Notes: ${m.instructions}</div>
+                <div class="med-name">${m.drug} (${m.dosage || ''})</div>
+                <div class="med-meta">Frequency: ${m.frequency || 'N/A'} | Duration: ${m.duration || 'N/A'}</div>
+                <div class="med-instructions">Indication & Notes: ${m.instructions || m.clinical_rationale || ''}</div>
             `;
             medicationGrid.appendChild(mCard);
         });
 
         // Tab 4: Vitals Protocol & Red Flags
         redFlagList.innerHTML = "";
-        const redFlags = agentRep.health_monitoring.emergency_red_flags || [];
+        const redFlags = monitorData.emergency_red_flags || [];
         redFlags.forEach(rf => {
             const li = document.createElement("li");
             li.textContent = rf;
@@ -293,45 +297,59 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         vitalsScheduleGrid.innerHTML = "";
-        const vSched = agentRep.health_monitoring.monitoring_schedule || [];
+        const vSched = monitorData.monitoring_schedule || [];
         vSched.forEach(v => {
             const vCard = document.createElement("div");
             vCard.className = "med-card";
+            const vCheck = Array.isArray(v.vitals_to_check) ? v.vitals_to_check.join(", ") : (v.vitals_to_check || '');
             vCard.innerHTML = `
                 <div class="med-name">Day ${v.day}: ${v.focus}</div>
-                <div class="med-meta">Check: ${v.vitals_to_check.join(", ")}</div>
+                <div class="med-meta">Check: ${vCheck}</div>
                 <div class="med-instructions">Instructions: ${v.action}</div>
             `;
             vitalsScheduleGrid.appendChild(vCard);
         });
 
         // Tab 5: Nutrition & Hydration
-        document.getElementById("hydrationVal").textContent = agentRep.pulmonary_nutrition.hydration_target || "3.0 Liters/day";
-        document.getElementById("proteinVal").textContent = agentRep.pulmonary_nutrition.protein_target || "1.2-1.5 g/kg/day";
+        const hydVal = dietData.hydration_target || (dietData.daily_hydration_liters ? `${dietData.daily_hydration_liters} Liters/day` : "3.0 Liters/day");
+        document.getElementById("hydrationVal").textContent = hydVal;
+        document.getElementById("proteinVal").textContent = dietData.protein_target || "1.2-1.5 g/kg/day";
 
         pillarsGrid.innerHTML = "";
-        const pillars = agentRep.pulmonary_nutrition.nutrition_pillars || [];
+        const pillars = dietData.key_nutritional_pillars || dietData.nutrition_pillars || [];
         pillars.forEach(p => {
             const pCard = document.createElement("div");
             pCard.className = "med-card";
             pCard.innerHTML = `
                 <div class="med-name">${p.pillar}</div>
-                <div class="med-instructions">${p.description}</div>
+                <div class="med-instructions">${p.benefit || p.description || ''}</div>
             `;
             pillarsGrid.appendChild(pCard);
         });
 
         mealGrid.innerHTML = "";
-        const meals = agentRep.pulmonary_nutrition.suggested_meal_plan || [];
-        meals.forEach(m => {
-            const mCard = document.createElement("div");
-            mCard.className = "med-card";
-            mCard.innerHTML = `
-                <div class="med-name">${m.meal}</div>
-                <div class="med-instructions">${m.options.join(", ")}</div>
-            `;
-            mealGrid.appendChild(mCard);
-        });
+        const mealPlan = dietData.sample_meal_plan || dietData.suggested_meal_plan || {};
+        if (Array.isArray(mealPlan)) {
+            mealPlan.forEach(m => {
+                const mCard = document.createElement("div");
+                mCard.className = "med-card";
+                mCard.innerHTML = `
+                    <div class="med-name">${m.meal}</div>
+                    <div class="med-instructions">${Array.isArray(m.options) ? m.options.join(", ") : m.options}</div>
+                `;
+                mealGrid.appendChild(mCard);
+            });
+        } else if (typeof mealPlan === "object") {
+            Object.entries(mealPlan).forEach(([mealName, options]) => {
+                const mCard = document.createElement("div");
+                mCard.className = "med-card";
+                mCard.innerHTML = `
+                    <div class="med-name">${mealName.toUpperCase()}</div>
+                    <div class="med-instructions">${Array.isArray(options) ? options.join(", ") : options}</div>
+                `;
+                mealGrid.appendChild(mCard);
+            });
+        }
 
         applyRoleView();
     }
