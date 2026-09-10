@@ -1,0 +1,469 @@
+{
+  "n_tested": 50,
+  "n_positive": 25,
+  "n_normal": 25,
+  "score_threshold": 0.01,
+  "seed": 42,
+  "metrics": {
+    "TP": 0,
+    "FP": 0,
+    "FN": 25,
+    "TN": 25,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "accuracy": 0.5
+  },
+  "per_image": [
+    {
+      "image_id": "val_10",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\0\\val_10.jpg",
+      "true_class_id": 0,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_100",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\0\\val_100.jpg",
+      "true_class_id": 0,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1000",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\0\\val_1000.jpg",
+      "true_class_id": 0,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1002",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\0\\val_1002.jpg",
+      "true_class_id": 0,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1003",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\0\\val_1003.jpg",
+      "true_class_id": 0,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1005",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\0\\val_1005.jpg",
+      "true_class_id": 0,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1008",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\0\\val_1008.jpg",
+      "true_class_id": 0,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1011",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\0\\val_1011.jpg",
+      "true_class_id": 0,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1013",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\0\\val_1013.jpg",
+      "true_class_id": 0,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1014",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\0\\val_1014.jpg",
+      "true_class_id": 0,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1017",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\0\\val_1017.jpg",
+      "true_class_id": 0,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1019",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\0\\val_1019.jpg",
+      "true_class_id": 0,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1022",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\0\\val_1022.jpg",
+      "true_class_id": 0,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1024",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\0\\val_1024.jpg",
+      "true_class_id": 0,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1027",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\0\\val_1027.jpg",
+      "true_class_id": 0,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_103",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\0\\val_103.jpg",
+      "true_class_id": 0,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1033",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\0\\val_1033.jpg",
+      "true_class_id": 0,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1034",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\0\\val_1034.jpg",
+      "true_class_id": 0,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1035",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\0\\val_1035.jpg",
+      "true_class_id": 0,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1039",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\0\\val_1039.jpg",
+      "true_class_id": 0,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1042",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\0\\val_1042.jpg",
+      "true_class_id": 0,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1046",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\0\\val_1046.jpg",
+      "true_class_id": 0,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1049",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\0\\val_1049.jpg",
+      "true_class_id": 0,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_105",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\0\\val_105.jpg",
+      "true_class_id": 0,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1051",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\0\\val_1051.jpg",
+      "true_class_id": 0,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_0",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\1\\val_0.jpg",
+      "true_class_id": 1,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\1\\val_1.jpg",
+      "true_class_id": 1,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1001",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\1\\val_1001.jpg",
+      "true_class_id": 1,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1004",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\1\\val_1004.jpg",
+      "true_class_id": 1,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1006",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\1\\val_1006.jpg",
+      "true_class_id": 1,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1007",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\1\\val_1007.jpg",
+      "true_class_id": 1,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1009",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\1\\val_1009.jpg",
+      "true_class_id": 1,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_101",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\1\\val_101.jpg",
+      "true_class_id": 1,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1010",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\1\\val_1010.jpg",
+      "true_class_id": 1,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1012",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\1\\val_1012.jpg",
+      "true_class_id": 1,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1015",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\1\\val_1015.jpg",
+      "true_class_id": 1,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1016",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\1\\val_1016.jpg",
+      "true_class_id": 1,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1018",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\1\\val_1018.jpg",
+      "true_class_id": 1,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_102",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\1\\val_102.jpg",
+      "true_class_id": 1,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1020",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\1\\val_1020.jpg",
+      "true_class_id": 1,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1021",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\1\\val_1021.jpg",
+      "true_class_id": 1,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1023",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\1\\val_1023.jpg",
+      "true_class_id": 1,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1025",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\1\\val_1025.jpg",
+      "true_class_id": 1,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1026",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\1\\val_1026.jpg",
+      "true_class_id": 1,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1028",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\1\\val_1028.jpg",
+      "true_class_id": 1,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1029",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\1\\val_1029.jpg",
+      "true_class_id": 1,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1030",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\1\\val_1030.jpg",
+      "true_class_id": 1,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1031",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\1\\val_1031.jpg",
+      "true_class_id": 1,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1032",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\1\\val_1032.jpg",
+      "true_class_id": 1,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    },
+    {
+      "image_id": "val_1036",
+      "image_path": "E:\\XRAY\\data\\raw\\dataset1\\val\\1\\val_1036.jpg",
+      "true_class_id": 1,
+      "n_detections": 0,
+      "detected_positive": false,
+      "max_score": 0.0,
+      "detections": []
+    }
+  ]
+}

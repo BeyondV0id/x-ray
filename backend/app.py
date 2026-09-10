@@ -229,11 +229,10 @@ async def detect_xray(
 
             # Generate Overlay Image
             plt_img = np.array(img_384)
-            # jet colormap overlay
             import matplotlib.pyplot as plt
             cmap = plt.get_cmap("jet")
             colored_cam = (cmap(cam_mask)[:, :, :3] * 255).astype(np.uint8)
-            overlay = cv2.addWeighted(plt_img, 0.6, colored_cam, 0.4, 0)
+            overlay = (plt_img * 0.6 + colored_cam * 0.4).astype(np.uint8)
             overlay_pil = Image.fromarray(overlay)
             
             buffered = io.BytesIO()

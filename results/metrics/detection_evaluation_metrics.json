@@ -1,6 +1,13 @@
 {
-  "model": "RetinaNet_ResNet50_FPN",
-  "mean_iou": 0.0,
-  "map_50": 0.0,
-  "evaluated_ground_truths": 0
+  "score_threshold": 0.2,
+  "iou_threshold": 0.5,
+  "total_gt_boxes": 0,
+  "total_pred_boxes": 0,
+  "true_positives": 0,
+  "false_positives": 0,
+  "false_negatives": 0,
+  "precision": 0.0,
+  "recall": 0.0,
+  "f1_score": 0.0,
+  "mean_iou": 0.0
 }

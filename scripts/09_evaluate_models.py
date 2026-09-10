@@ -249,10 +249,144 @@ def evaluate_tb_model(model_path: Path, csv_path: Path, img_dir: Path, output_me
     # 6. Class-wise Comparison Chart
     generate_classwise_comparison_chart(tn, fp, fn, tp, output_plots_dir)
 
+def compute_box_iou(box1, box2):
+    """Compute Intersection-over-Union (IoU) of two bounding boxes [xmin, ymin, xmax, ymax]."""
+    x1 = max(box1[0], box2[0])
+    y1 = max(box1[1], box2[1])
+    x2 = min(box1[2], box2[2])
+    y2 = min(box1[3], box2[3])
+
+    inter_area = max(0.0, x2 - x1) * max(0.0, y2 - y1)
+    box1_area = (box1[2] - box1[0]) * (box1[3] - box1[1])
+    box2_area = (box2[2] - box2[0]) * (box2[3] - box2[1])
+
+    union_area = box1_area + box2_area - inter_area
+    if union_area <= 0:
+        return 0.0
+    return inter_area / union_area
+
+def evaluate_detection_model(model_path: Path, val_json_path: Path, output_metrics_dir: Path, output_plots_dir: Path, score_thresh=0.2, iou_thresh=0.5, image_size=512):
+    """Evaluates PyTorch RetinaNet Object Detector on validation manifest with ground truth bounding boxes."""
+    logger = setup_logger("eval_detection")
+    logger.info("=== EVALUATING PYTORCH RETINANET OBJECT DETECTION MODEL ===")
+
+    if not model_path.exists():
+        logger.warning(f"Detection model checkpoint not found at {model_path}. Skipping detection evaluation.")
+        return
+
+    if not val_json_path.exists():
+        logger.warning(f"Validation JSON manifest not found at {val_json_path}. Skipping detection evaluation.")
+        return
+
+    with open(val_json_path, "r", encoding="utf-8") as f:
+        val_records = json.load(f)
+
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    logger.info(f"Target Compute Device: {device}")
+
+    from torchvision.models import ResNet50_Weights
+    from torchvision.models.detection import retinanet_resnet50_fpn
+
+    model = retinanet_resnet50_fpn(weights=None, num_classes=3, weights_backbone=ResNet50_Weights.DEFAULT)
+    state_dict = torch.load(model_path, map_location=device)
+    model.load_state_dict(state_dict)
+    model.to(device)
+    model.eval()
+
+    total_gt_boxes = 0
+    total_pred_boxes = 0
+    tp_boxes = 0
+    fp_boxes = 0
+    fn_boxes = 0
+    iou_scores = []
+
+    for rec in val_records:
+        img_path = rec["image_path"]
+        gt_boxes = rec.get("boxes", [])
+
+        abs_gt_boxes = []
+        for box in gt_boxes:
+            ymin, xmin, ymax, xmax = box
+            abs_gt_boxes.append([xmin * image_size, ymin * image_size, xmax * image_size, ymax * image_size])
+        total_gt_boxes += len(abs_gt_boxes)
+
+        try:
+            img = Image.open(img_path).convert("RGB").resize((image_size, image_size), Image.BILINEAR)
+            img_tensor = torch.from_numpy(np.array(img)).permute(2, 0, 1).float() / 255.0
+        except Exception:
+            continue
+
+        with torch.no_grad():
+            outputs = model([img_tensor.to(device)])[0]
+
+        pred_boxes = outputs["boxes"].cpu().numpy()
+        pred_scores = outputs["scores"].cpu().numpy()
+        pred_labels = outputs["labels"].cpu().numpy()
+
+        keep = pred_scores >= score_thresh
+        keep_boxes = pred_boxes[keep]
+        total_pred_boxes += len(keep_boxes)
+
+        gt_matched = [False] * len(abs_gt_boxes)
+        for p_box in keep_boxes:
+            best_iou = 0.0
+            best_gt_idx = -1
+            for idx, g_box in enumerate(abs_gt_boxes):
+                iou = compute_box_iou(p_box, g_box)
+                if iou > best_iou:
+                    best_iou = iou
+                    best_gt_idx = idx
+
+            if best_iou >= iou_thresh and best_gt_idx >= 0 and not gt_matched[best_gt_idx]:
+                tp_boxes += 1
+                gt_matched[best_gt_idx] = True
+                iou_scores.append(float(best_iou))
+            else:
+                fp_boxes += 1
+
+        fn_boxes += sum(1 for matched in gt_matched if not matched)
+
+    precision = tp_boxes / max(1, (tp_boxes + fp_boxes))
+    recall = tp_boxes / max(1, (tp_boxes + fn_boxes))
+    f1 = 2 * (precision * recall) / max(1e-6, (precision + recall))
+    mean_iou = float(np.mean(iou_scores)) if iou_scores else 0.0
+
+    metrics = {
+        "score_threshold": score_thresh,
+        "iou_threshold": iou_thresh,
+        "total_gt_boxes": total_gt_boxes,
+        "total_pred_boxes": total_pred_boxes,
+        "true_positives": tp_boxes,
+        "false_positives": fp_boxes,
+        "false_negatives": fn_boxes,
+        "precision": round(precision, 4),
+        "recall": round(recall, 4),
+        "f1_score": round(f1, 4),
+        "mean_iou": round(mean_iou, 4)
+    }
+
+    out_metrics_path = output_metrics_dir / "detection_evaluation_metrics.json"
+    with open(out_metrics_path, "w", encoding="utf-8") as f:
+        json.dump(metrics, f, indent=2)
+
+    print("\n" + "="*60)
+    print("      OBJECT DETECTION VALIDATION METRICS (RETINANET)")
+    print("="*60)
+    print(f"  • Total GT Bounding Boxes  : {total_gt_boxes}")
+    print(f"  • Total Predicted Boxes    : {total_pred_boxes}")
+    print(f"  • Bounding Box Precision   : {precision * 100:.2f}%")
+    print(f"  • Bounding Box Recall      : {recall * 100:.2f}%")
+    print(f"  • Bounding Box F1-Score    : {f1:.4f}")
+    print(f"  • Mean Bounding Box IoU    : {mean_iou:.4f}")
+    print("="*60 + "\n")
+
+    logger.info(f"Saved Detection Metrics to {out_metrics_path}")
+
 def main():
     parser = argparse.ArgumentParser(description="Evaluate PyTorch GPU Models & Generate Complete Diagnostic Plots.")
     parser.add_argument("--tb-model-path", type=str, default="models/production/best_tbx11k_pytorch.pth")
     parser.add_argument("--det-model-path", type=str, default="models/production/best_model_pytorch.pth")
+    parser.add_argument("--val-json-path", type=str, default="data/processed/val.json")
     parser.add_argument("--history-path", type=str, default="models/production/training_history_classification.json")
     parser.add_argument("--data-csv", type=str, default=r"data\raw\tuberculosis\data.csv")
     parser.add_argument("--img-dir", type=str, default=r"data\raw\tuberculosis\images")
@@ -276,6 +410,17 @@ def main():
             model_path=tb_ckpt,
             csv_path=Path(args.data_csv),
             img_dir=Path(args.img_dir),
+            output_metrics_dir=metrics_dir,
+            output_plots_dir=plots_dir
+        )
+
+    # 7. Evaluate Object Detection Model on Validation JSON Manifest
+    det_ckpt = Path(args.det_model_path)
+    val_manifest = Path(args.val_json_path)
+    if det_ckpt.exists() and val_manifest.exists():
+        evaluate_detection_model(
+            model_path=det_ckpt,
+            val_json_path=val_manifest,
             output_metrics_dir=metrics_dir,
             output_plots_dir=plots_dir
         )

@@ -11,7 +11,8 @@ import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 import torchvision
-from torchvision.models.detection import retinanet_resnet50_fpn, RetinaNet_ResNet50_FPN_Weights
+from torchvision.models import ResNet50_Weights
+from torchvision.models.detection import retinanet_resnet50_fpn
 from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -121,9 +122,9 @@ def main():
     parser.add_argument("--data-csv", type=str, default=r"data\raw\tuberculosis\data.csv", help="Path to data.csv file.")
     parser.add_argument("--img-dir", type=str, default=r"data\raw\tuberculosis\images", help="Path to images folder.")
     parser.add_argument("--epochs", type=int, default=2, help="Number of epochs.")
-    parser.add_argument("--batch-size", type=int, default=8, help="Batch size for detection.")
+    parser.add_argument("--batch-size", type=int, default=4, help="Batch size for detection.")
     parser.add_argument("--lr", type=float, default=0.0001, help="Learning rate.")
-    parser.add_argument("--image-size", type=int, default=512, help="Image resolution.")
+    parser.add_argument("--image-size", type=int, default=384, help="Image resolution.")
     parser.add_argument("--subsample-ratio", type=float, default=1.0, help="Fraction of dataset to use (e.g., 0.2 for 20%).")
     parser.add_argument("--max-samples", type=int, default=None, help="Maximum number of training samples to use.")
     args = parser.parse_args()
@@ -160,18 +161,20 @@ def main():
         logger.info(f"  - Active GPU: {torch.cuda.get_device_name(0)}")
 
     # Pretrained RetinaNet
-    model = retinanet_resnet50_fpn(weights=RetinaNet_ResNet50_FPN_Weights.DEFAULT, num_classes=2)
+    model = retinanet_resnet50_fpn(weights=None, num_classes=2, weights_backbone=ResNet50_Weights.DEFAULT)
     model.to(device)
 
     params = [p for p in model.parameters() if p.requires_grad]
     optimizer = torch.optim.AdamW(params, lr=args.lr, weight_decay=0.0001)
+
+    scaler = torch.amp.GradScaler('cuda', enabled=(device.type == "cuda"))
 
     prod_dir = Path("models/production")
     prod_dir.mkdir(parents=True, exist_ok=True)
     best_val_loss = float('inf')
 
     total_steps = len(train_loader)
-    logger.info(f"Starting GPU Object Detection Training: {args.epochs} Epochs | Batch Size: {args.batch_size} | Steps per Epoch: {total_steps}")
+    logger.info(f"Starting GPU Object Detection Training: {args.epochs} Epochs | Batch Size: {args.batch_size} | Image Size: {args.image_size} | Steps per Epoch: {total_steps}")
 
     for epoch in range(1, args.epochs + 1):
         model.train()
@@ -182,12 +185,14 @@ def main():
             images = list(image.to(device) for image in images)
             targets = [{k: v.to(device) for k, v in t.items()} for t in targets]
 
-            loss_dict = model(images, targets)
-            losses = sum(loss for loss in loss_dict.values())
-
             optimizer.zero_grad()
-            losses.backward()
-            optimizer.step()
+            with torch.amp.autocast('cuda', enabled=(device.type == "cuda")):
+                loss_dict = model(images, targets)
+                losses = sum(loss for loss in loss_dict.values())
+
+            scaler.scale(losses).backward()
+            scaler.step(optimizer)
+            scaler.update()
 
             running_loss += losses.item()
 
@@ -204,8 +209,9 @@ def main():
             for images, targets in val_loader:
                 images = list(image.to(device) for image in images)
                 targets = [{k: v.to(device) for k, v in t.items()} for t in targets]
-                loss_dict = model(images, targets)
-                losses = sum(loss for loss in loss_dict.values())
+                with torch.amp.autocast('cuda', enabled=(device.type == "cuda")):
+                    loss_dict = model(images, targets)
+                    losses = sum(loss for loss in loss_dict.values())
                 val_loss += losses.item()
                 val_steps += 1
 
