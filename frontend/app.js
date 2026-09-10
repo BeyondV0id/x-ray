@@ -46,20 +46,26 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const res = await fetch(`${API_BASE}/health`);
             const data = await res.json();
-            statusBadge.textContent = "Backend: Online";
-            statusBadge.classList.remove("pulse");
-            statusBadge.style.color = "#10b981";
+            if (statusBadge) {
+                statusBadge.textContent = "Backend: Online";
+                statusBadge.classList.remove("pulse");
+                statusBadge.style.color = "#10b981";
+            }
 
-            if (data.gpu_name && data.gpu_name !== "N/A") {
-                gpuBadge.textContent = `GPU: ${data.gpu_name}`;
-                gpuBadge.style.color = "#10b981";
-            } else {
-                gpuBadge.textContent = "Compute: CPU";
-                gpuBadge.style.color = "#94a3b8";
+            if (gpuBadge) {
+                if (data.gpu_name && data.gpu_name !== "N/A") {
+                    gpuBadge.textContent = `GPU: ${data.gpu_name}`;
+                    gpuBadge.style.color = "#10b981";
+                } else {
+                    gpuBadge.textContent = "Compute: CPU";
+                    gpuBadge.style.color = "#94a3b8";
+                }
             }
         } catch (e) {
-            statusBadge.textContent = "Backend: Offline";
-            statusBadge.style.color = "#f43f5e";
+            if (statusBadge) {
+                statusBadge.textContent = "Backend: Offline";
+                statusBadge.style.color = "#f43f5e";
+            }
         }
     }
 
