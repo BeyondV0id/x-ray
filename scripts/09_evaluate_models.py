@@ -254,8 +254,8 @@ def main():
     parser.add_argument("--tb-model-path", type=str, default="models/production/best_tbx11k_pytorch.pth")
     parser.add_argument("--det-model-path", type=str, default="models/production/best_model_pytorch.pth")
     parser.add_argument("--history-path", type=str, default="models/production/training_history_classification.json")
-    parser.add_argument("--data-csv", type=str, default=r"data_zips\tbx11k-simplified\data.csv")
-    parser.add_argument("--img-dir", type=str, default=r"data_zips\tbx11k-simplified\images")
+    parser.add_argument("--data-csv", type=str, default=r"data\raw\tuberculosis\data.csv")
+    parser.add_argument("--img-dir", type=str, default=r"data\raw\tuberculosis\images")
     parser.add_argument("--config", type=str, default=None)
     args = parser.parse_args()
 

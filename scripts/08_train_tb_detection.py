@@ -92,12 +92,12 @@ def collate_fn(batch):
 
 def resolve_paths(data_csv_arg, img_dir_arg):
     candidate_csvs = [
-        Path("data_zips/tbx11k-simplified/data.csv"),
+        Path("data/raw/tuberculosis/data.csv"),
         Path(r"E:\kagglehub_cache\datasets\vbookshelf\tbx11k-simplified\versions\1\tbx11k-simplified\data.csv"),
         Path(data_csv_arg)
     ]
     candidate_imgs = [
-        Path("data_zips/tbx11k-simplified/images"),
+        Path("data/raw/tuberculosis/images"),
         Path(r"E:\kagglehub_cache\datasets\vbookshelf\tbx11k-simplified\versions\1\tbx11k-simplified\images"),
         Path(img_dir_arg)
     ]
@@ -118,8 +118,8 @@ def resolve_paths(data_csv_arg, img_dir_arg):
 
 def main():
     parser = argparse.ArgumentParser(description="Train PyTorch RetinaNet Object Detector on TBX11K Dataset.")
-    parser.add_argument("--data-csv", type=str, default=r"data_zips\tbx11k-simplified\data.csv", help="Path to data.csv file.")
-    parser.add_argument("--img-dir", type=str, default=r"data_zips\tbx11k-simplified\images", help="Path to images folder.")
+    parser.add_argument("--data-csv", type=str, default=r"data\raw\tuberculosis\data.csv", help="Path to data.csv file.")
+    parser.add_argument("--img-dir", type=str, default=r"data\raw\tuberculosis\images", help="Path to images folder.")
     parser.add_argument("--epochs", type=int, default=2, help="Number of epochs.")
     parser.add_argument("--batch-size", type=int, default=8, help="Batch size for detection.")
     parser.add_argument("--lr", type=float, default=0.0001, help="Learning rate.")

@@ -50,12 +50,12 @@ class TBX11KDataset(Dataset):
 
 def resolve_paths(data_csv_arg, img_dir_arg):
     candidate_csvs = [
-        Path("data_zips/tbx11k-simplified/data.csv"),
+        Path("data/raw/tuberculosis/data.csv"),
         Path(r"E:\kagglehub_cache\datasets\vbookshelf\tbx11k-simplified\versions\1\tbx11k-simplified\data.csv"),
         Path(data_csv_arg)
     ]
     candidate_imgs = [
-        Path("data_zips/tbx11k-simplified/images"),
+        Path("data/raw/tuberculosis/images"),
         Path(r"E:\kagglehub_cache\datasets\vbookshelf\tbx11k-simplified\versions\1\tbx11k-simplified\images"),
         Path(img_dir_arg)
     ]
@@ -77,10 +77,10 @@ def resolve_paths(data_csv_arg, img_dir_arg):
 def main():
     parser = argparse.ArgumentParser(description="Train PyTorch GPU EfficientNetB0 on TBX11K Dataset.")
     parser.add_argument("--data-csv", type=str, 
-                        default=r"data_zips\tbx11k-simplified\data.csv",
+                        default=r"data\raw\tuberculosis\data.csv",
                         help="Path to data.csv file.")
     parser.add_argument("--img-dir", type=str, 
-                        default=r"data_zips\tbx11k-simplified\images",
+                        default=r"data\raw\tuberculosis\images",
                         help="Path to images folder.")
     parser.add_argument("--epochs", type=int, default=10, help="Number of epochs.")
     parser.add_argument("--batch-size", type=int, default=16, help="Batch size.")
