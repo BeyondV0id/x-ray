@@ -124,18 +124,27 @@ def main():
     parser.add_argument("--batch-size", type=int, default=8, help="Batch size for detection.")
     parser.add_argument("--lr", type=float, default=0.0001, help="Learning rate.")
     parser.add_argument("--image-size", type=int, default=512, help="Image resolution.")
+    parser.add_argument("--subsample-ratio", type=float, default=1.0, help="Fraction of dataset to use (e.g., 0.2 for 20%).")
+    parser.add_argument("--max-samples", type=int, default=None, help="Maximum number of training samples to use.")
     args = parser.parse_args()
 
     logger = setup_logger("train_tbx11k_detection_torch")
-    logger.info("=== STEP 07: PYTORCH GPU TBX11K OBJECT DETECTION (RETINANET) ===")
+    logger.info("=== STEP 08: PYTORCH GPU TBX11K OBJECT DETECTION (RETINANET) ===")
 
     csv_path, img_dir = resolve_paths(args.data_csv, args.img_dir)
     logger.info(f"Using CSV: {csv_path}")
     logger.info(f"Using Image Dir: {img_dir}")
 
     df = pd.read_csv(csv_path)
-    train_df = df[df['source'] == 'train']
-    val_df = df[df['source'] == 'val']
+    train_df = df[df['source'] == 'train'].reset_index(drop=True)
+    val_df = df[df['source'] == 'val'].reset_index(drop=True)
+
+    # Subsampling logic if requested
+    if args.subsample_ratio < 1.0:
+        train_df = train_df.sample(frac=args.subsample_ratio, random_state=42).reset_index(drop=True)
+        val_df = val_df.sample(frac=args.subsample_ratio, random_state=42).reset_index(drop=True)
+    if args.max_samples is not None and len(train_df) > args.max_samples:
+        train_df = train_df.sample(n=args.max_samples, random_state=42).reset_index(drop=True)
 
     logger.info(f"Loaded CSV: Train={len(train_df)} | Val={len(val_df)}")
 
