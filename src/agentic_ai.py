@@ -138,24 +138,30 @@ def _build_langchain_pipeline(api_key: str):
         logger.error(f"LangChain import failed: {e}. Run: pip install langchain langchain-google-genai")
         return None
 
-    # ── LLM with LangChain Fallbacks ───────────────────────────────────────
+    # ── LLM with Fast Timeout & LangChain Fallbacks ─────────────────────────
     primary_llm = ChatGoogleGenerativeAI(
         model="gemini-3.6-flash",
         google_api_key=api_key,
         temperature=0.3,
         max_output_tokens=2048,
+        max_retries=1,
+        timeout=5,
     )
     fallback_llm1 = ChatGoogleGenerativeAI(
         model="gemini-2.5-flash",
         google_api_key=api_key,
         temperature=0.3,
         max_output_tokens=2048,
+        max_retries=1,
+        timeout=5,
     )
     fallback_llm2 = ChatGoogleGenerativeAI(
         model="gemini-1.5-flash",
         google_api_key=api_key,
         temperature=0.3,
         max_output_tokens=2048,
+        max_retries=1,
+        timeout=5,
     )
 
     llm = primary_llm.with_fallbacks([fallback_llm1, fallback_llm2])
